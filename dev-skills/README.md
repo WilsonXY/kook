@@ -18,6 +18,7 @@ Rules for this directory:
 | python-debugpy | Debug Python with pdb / debugpy |
 | github | gh CLI: PRs, issues, reviews, CI, repo management |
 | stacked-prs | Rebase / retarget stacked or conflicting PRs |
+| long-running-commands | Don't end your turn while a test/build runs; poll until the result is in |
 | linux-user-services | Run daemons without root (systemd --user) |
 | service-monitoring | Downtime alerting for a hosted service |
 
