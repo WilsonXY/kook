@@ -1,25 +1,21 @@
 # dev-skills
 
-Harness-agnostic software-development skills. Each folder is a `SKILL.md` (plus optional `references/`, `scripts/`, `templates/`) that any coding agent can read: Claude Code, Codex, OpenCode, Antigravity, T3 Code, Hermes, etc.
-
-Rules for this directory:
-- No references to a specific agent harness, orchestrator, harness-specific tool names or project. Say "search the codebase", not a tool name. Examples should not assume one language: show the generic command or name the common runners.
-- Where a skill mentions subagents, it must also say what to do without them.
-- Project facts belong in each project's `AGENTS.md`, not here.
+Harness-agnostic software-development skills for coding agents (any harness that reads `SKILL.md` folders). Kept deliberately small: only skills that change what an agent does in an implement -> test -> review -> PR cycle.
 
 | Skill | Use it for |
 |---|---|
-| systematic-debugging | Find the root cause before fixing |
 | test-driven-development | RED-GREEN-REFACTOR, tests first |
-| spike | Throwaway experiments before committing to a build |
-| codebase-inspection | LOC / language stats with pygount |
-| dogfood | Exploratory QA of a web app |
-| node-inspect-debugger | Debug Node.js with --inspect / CDP |
-| python-debugpy | Debug Python with pdb / debugpy |
-| github | gh CLI: PRs, issues, reviews, CI, repo management |
-| stacked-prs | Rebase / retarget stacked or conflicting PRs |
+| systematic-debugging | Find the root cause before fixing |
 | long-running-commands | Don't end your turn while a test/build runs; poll until the result is in |
-| linux-user-services | Run daemons without root (systemd --user) |
-| service-monitoring | Downtime alerting for a hosted service |
+| requesting-code-review | Independent review of your diff before opening the PR |
+| github | gh CLI: PRs, issues, CI, review comments |
 
-Attribution: systematic-debugging and test-driven-development are adapted from obra/superpowers (MIT); spike from gsd-build/get-shit-done (MIT); github, dogfood, debugger and inspection skills originate from Hermes Agent (Nous Research, MIT).
+Rules for this directory:
+- No references to a specific agent harness, orchestrator, harness-specific tool names, or any project/person. Say "search the codebase", not a tool name. Do not assume one language.
+- Where a skill mentions subagents, it must also say what to do without them.
+- Project facts belong in each project's `AGENTS.md`, not here.
+- Add a skill only with evidence an agent needed it. Fewer skills beat more.
+
+Removed 2026-10-02 as noise for this workflow (still in git history): spike, dogfood, stacked-prs, codebase-inspection, node-inspect-debugger, python-debugpy, service-monitoring, linux-user-services.
+
+Attribution: systematic-debugging, test-driven-development and requesting-code-review are adapted from obra/superpowers (MIT); github originates from Hermes Agent (Nous Research, MIT).
