@@ -13,11 +13,12 @@ metadata:
 
 ## Overview
 
-This skill guides you through systematic exploratory QA testing of web applications using the browser toolset. You will navigate the application, interact with elements, capture evidence of issues, and produce a structured bug report.
+This skill guides you through systematic exploratory QA testing of web applications using a real browser you can drive. You will navigate the application, interact with elements, capture evidence of issues, and produce a structured bug report.
 
 ## Prerequisites
 
-- Browser toolset must be available (`browser_navigate`, `browser_snapshot`, `browser_click`, `browser_type`, `browser_vision`, `browser_console`, `browser_scroll`, `browser_back`, `browser_press`)
+- A way to drive and observe a real browser: navigate, read page structure (DOM or accessibility tree), click, type, press keys, scroll, read the JS console, and take screenshots. Any of these work: Playwright/Puppeteer scripts, Chrome DevTools Protocol, a browser MCP server, or your harness's built-in browser tool.
+- **No browser access at all?** Say so up front and stop. Do not fake a QA pass from reading code; report "not verified visually" instead. Static checks (HTTP status, fetched HTML, contrast calculations) can be listed as partial evidence only.
 - A target URL and testing scope from the user
 
 ## Inputs
@@ -52,38 +53,28 @@ Follow this 5-phase systematic workflow:
 For each page or feature in your plan:
 
 1. **Navigate** to the page:
-   ```
-   browser_navigate(url="https://example.com/page")
-   ```
+   Open the page in the browser.
 
 2. **Take a snapshot** to understand the DOM structure:
-   ```
-   browser_snapshot()
-   ```
+   Read the page structure (DOM / accessibility tree).
 
 3. **Check the console** for JavaScript errors:
-   ```
-   browser_console(clear=true)
-   ```
+   Read the JS console (clear it first).
    Do this after every navigation and after every significant interaction. Silent JS errors are high-value findings.
 
-4. **Take an annotated screenshot** to visually assess the page and identify interactive elements:
-   ```
-   browser_vision(question="Describe the page layout, identify any visual issues, broken elements, or accessibility concerns", annotate=true)
-   ```
-   The `annotate=true` flag overlays numbered `[N]` labels on interactive elements. Each `[N]` maps to ref `@eN` for subsequent browser commands.
+4. **Take a screenshot** and inspect it for layout problems, broken elements, and accessibility concerns (contrast, focus visibility, tap-target size). If your tooling can label interactive elements on the screenshot, use that to pick click targets.
 
 5. **Test interactive elements** systematically:
-   - Click buttons and links: `browser_click(ref="@eN")`
-   - Fill forms: `browser_type(ref="@eN", text="test input")`
-   - Test keyboard navigation: `browser_press(key="Tab")`, `browser_press(key="Enter")`
-   - Scroll through content: `browser_scroll(direction="down")`
+   - Click buttons and links
+   - Fill forms
+   - Test keyboard navigation (Tab, Enter, Escape)
+   - Scroll through long content
    - Test form validation with invalid inputs
    - Test empty submissions
 
 6. **After each interaction**, check for:
-   - Console errors: `browser_console()`
-   - Visual changes: `browser_vision(question="What changed after the interaction?")`
+   - Console errors
+   - Visual changes (take another screenshot and compare)
    - Expected vs actual behavior
 
 ### Phase 3: Collect Evidence
@@ -91,10 +82,7 @@ For each page or feature in your plan:
 For every issue found:
 
 1. **Take a screenshot** showing the issue:
-   ```
-   browser_vision(question="Capture and describe the issue visible on this page", annotate=false)
-   ```
-   Save the `screenshot_path` from the response — you will reference it in the report.
+   Save the screenshot file path; you will reference it in the report.
 
 2. **Record the details**:
    - URL where the issue occurs
@@ -136,24 +124,9 @@ The report must include:
 
 Save the report to `{output_dir}/report.md`.
 
-## Tools Reference
-
-| Tool | Purpose |
-|------|---------|
-| `browser_navigate` | Go to a URL |
-| `browser_snapshot` | Get DOM text snapshot (accessibility tree) |
-| `browser_click` | Click an element by ref (`@eN`) or text |
-| `browser_type` | Type into an input field |
-| `browser_scroll` | Scroll up/down on the page |
-| `browser_back` | Go back in browser history |
-| `browser_press` | Press a keyboard key |
-| `browser_vision` | Screenshot + AI analysis; use `annotate=true` for element labels |
-| `browser_console` | Get JS console output and errors |
-
 ## Tips
 
-- **Always check `browser_console()` after navigating and after significant interactions.** Silent JS errors are among the most valuable findings.
-- **Use `annotate=true` with `browser_vision`** when you need to reason about interactive element positions or when the snapshot refs are unclear.
+- **Always check the JS console after navigating and after significant interactions.** Silent JS errors are among the most valuable findings.
 - **Test with both valid and invalid inputs** — form validation bugs are common.
 - **Scroll through long pages** — content below the fold may have rendering issues.
 - **Test navigation flows** — click through multi-step processes end-to-end.

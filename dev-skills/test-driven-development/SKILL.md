@@ -74,6 +74,16 @@ def test_retries_failed_operations_3_times():
 ```
 Clear name, tests real behavior, one thing.
 
+**Same idea in TypeScript (vitest/jest):**
+```ts
+it("retries a failing operation 3 times", () => {
+  let attempts = 0;
+  const op = () => { attempts++; if (attempts < 3) throw new Error("fail"); return "success"; };
+  expect(retryOperation(op)).toBe("success");
+  expect(attempts).toBe(3);
+});
+```
+
 **Bad test:**
 ```python
 def test_retry_works():
@@ -95,8 +105,11 @@ Vague name, tests mock not real code.
 **MANDATORY. Never skip.**
 
 ```bash
-# Run the specific test (pytest shown; use your project's runner, e.g. npx vitest run <file>)
-pytest tests/test_feature.py::test_specific_behavior -v
+# Run the specific test with your project's runner:
+pytest tests/test_feature.py::test_specific_behavior -v     # Python
+npx vitest run src/feature.test.ts -t "specific behavior"    # TypeScript
+go test ./pkg -run TestSpecificBehavior -v                   # Go
+cargo test specific_behavior                                  # Rust
 ```
 
 Confirm:
@@ -112,19 +125,9 @@ Confirm:
 
 Write the simplest code to pass the test. Nothing more.
 
-**Good:**
-```python
-def add(a, b):
-    return a + b  # Nothing extra
-```
+**Good:** `return a + b` (nothing extra).
 
-**Bad:**
-```python
-def add(a, b):
-    result = a + b
-    logging.info(f"Adding {a} + {b} = {result}")  # Extra!
-    return result
-```
+**Bad:** adding logging, caching or options the test never asked for.
 
 Don't add features, refactor other code, or "improve" beyond the test.
 
