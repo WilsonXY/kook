@@ -41,7 +41,7 @@ Don't use for: system services that genuinely need root (kernel modules, privile
 ## Pitfalls
 
 - **Do not sit at sudo password prompts.** `sudo -n` fails non-interactively; a pty prompt is a dead end — kill it and pivot to the no-root binary route. (If the user is present and prefers apt, ask them to run the sudo command themselves.)
-- **The `terminal` tool rejects foreground `&`.** Start servers with `background=true` (silent daemons) and health-check in a separate follow-up call; or use a generate/one-shot subcommand when one exists.
+- **Agent shells often reject or kill foreground `&` jobs.** Start servers as detached/background processes (`nohup`, `setsid`, or a systemd unit) and health-check in a separate follow-up command; or use a generate/one-shot subcommand when one exists.
 - **After POSTing `/rest/system/restart` on a `--no-restart` unit, the process exits and systemd leaves the unit dead** (the API restart just kills it) — immediately `systemctl --user is-active` and `start` the unit again; until you add `SuccessExitStatus=3 4` to the unit. A 'restarting' ok reply is not proof the daemon is back.
 - **Get identity and topology from the REST API, not by hand-deriving.** Device ID = `myID` from `/rest/system/status`; the v2 CLI has no `--device-id` flag and computing the ID from the certificate yourself drifts off-by-one. GUI may lag the service start — if 8384 refuses, restart the unit once and retry.
 - **POST to a collection endpoint applies immediately but returns 405** (Syncthing quirk — the write lands); use PATCH on the resource path (`/rest/config/folders/<id>`) for subresource updates like versioning, and never trust the status code alone — re-GET and verify.

@@ -3,7 +3,7 @@
 Harness-agnostic software-development skills. Each folder is a `SKILL.md` (plus optional `references/`, `scripts/`, `templates/`) that any coding agent can read: Claude Code, Codex, OpenCode, Antigravity, T3 Code, Hermes, etc.
 
 Rules for this directory:
-- No references to a specific agent harness, orchestrator, tool name (`delegate_task`, etc.) or project.
+- No references to a specific agent harness, orchestrator, harness-specific tool names or project. Say "search the codebase", not a tool name. Examples should not assume one language: show the generic command or name the common runners.
 - Where a skill mentions subagents, it must also say what to do without them.
 - Project facts belong in each project's `AGENTS.md`, not here.
 

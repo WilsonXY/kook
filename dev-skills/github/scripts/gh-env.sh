@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # GitHub environment detection helper for agent skills.
 #
-# Usage (via terminal tool):
+# Usage (from a shell):
 #   source <skill-dir>/scripts/gh-env.sh
 #
 # After sourcing, these variables are set:

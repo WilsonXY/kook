@@ -14,7 +14,7 @@ Don't use for: reviewing an existing PR, or answering a code question with no re
 
 ### 1. Read the live issue — body AND full thread
 
-Use `terminal` to run `gh issue view <N> --comments`. The body is a snapshot from filing time; the newest comments carry the live state: partial fixes already merged, new root-cause analyses, maintainer decisions, or questions directed at you that change the task. Also read repository instructions (`AGENTS.md`, contribution docs) with `read_file`. Done when the currently requested behavior, non-goals, and any unanswered thread questions are known.
+Run `gh issue view <N> --comments`. The body is a snapshot from filing time; the newest comments carry the live state: partial fixes already merged, new root-cause analyses, maintainer decisions, or questions directed at you that change the task. Also read repository instructions (`AGENTS.md`, contribution docs) by reading the files. Done when the currently requested behavior, non-goals, and any unanswered thread questions are known.
 
 ### 2. Sweep for existing and duplicate work
 
@@ -22,7 +22,7 @@ Before writing anything, run `gh pr list --search "#<N>" --state all` plus at le
 
 ### 3. Validate the premise against current code — and against design intent
 
-Reproduce the bug or demonstrate the missing behavior on the current default branch with a failing test or fixture, using `search_files` and `read_file` to trace the reported path. Then check the second question: is the "bug" actually deliberate design? Run `git log -p -S "<symbol>"` on the code the issue wants changed and read the original commit's intent — a missing link or restriction is often the feature. Challenge stale or flawed issue prose instead of implementing it blindly. Done when the root cause or feature gap is demonstrated in current code AND the change doesn't fight an intentional design.
+Reproduce the bug or demonstrate the missing behavior on the current default branch with a failing test or fixture, searching and reading the code to trace the reported path. Then check the second question: is the "bug" actually deliberate design? Run `git log -p -S "<symbol>"` on the code the issue wants changed and read the original commit's intent — a missing link or restriction is often the feature. Challenge stale or flawed issue prose instead of implementing it blindly. Done when the root cause or feature gap is demonstrated in current code AND the change doesn't fight an intentional design.
 
 ### 4. Define acceptance and risk
 

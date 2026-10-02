@@ -95,7 +95,7 @@ Vague name, tests mock not real code.
 **MANDATORY. Never skip.**
 
 ```bash
-# Use terminal tool to run the specific test
+# Run the specific test (pytest shown; use your project's runner, e.g. npx vitest run <file>)
 pytest tests/test_feature.py::test_specific_behavior -v
 ```
 

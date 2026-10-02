@@ -27,7 +27,7 @@ ERROR tests/test_foo.py - ModuleNotFoundError
 
 **Diagnosis:**
 1. Find the test file and line number from the traceback
-2. Use `read_file` to read the failing test
+2. Read the failing test
 3. Check if it's a logic error in the code or a stale test assertion
 4. Look for `ModuleNotFoundError` — usually a missing dependency in CI
 
@@ -54,7 +54,7 @@ error: would reformat src/utils.py
 **Common fixes:**
 - Run the formatter locally: `black .`, `isort .`, `ruff check --fix .`
 - Fix the specific style violation by editing the file
-- If using `patch`, make sure to match existing indentation style
+- When editing, make sure to match existing indentation style
 
 ---
 
