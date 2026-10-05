@@ -23,7 +23,7 @@ starting that workflow, the body below only routes.
 |---|---|
 | Auth broken / new machine / token or SSH setup / gh login | `references/auth.md` |
 | Create, triage, label, assign, close issues | `references/issues.md` |
-| Branch, commit, open PR, watch CI, merge | `references/pr-workflow.md` |
+| Branch, commit, open PR, watch CI (merge only if the owner explicitly asks) | `references/pr-workflow.md` |
 | Carry an ISSUE to a verified PR (full delivery loop) | `references/issue-to-pr.md` |
 | Review someone's PR: diffs, inline comments, verdict | `references/code-review.md` |
 | Clone/create/fork repos, remotes, releases | `references/repo-management.md` |

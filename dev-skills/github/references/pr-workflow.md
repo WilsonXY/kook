@@ -255,11 +255,13 @@ When asked to auto-fix CI, follow this loop:
 1. Check CI status → identify failures
 2. Read failure logs → understand the error
 3. Read the code and edit it → fix the code
-4. `git add . && git commit -m "fix: ..." && git push`
+4. Stage only the files you changed (`git add <files>`, never `git add .`), commit `fix: ...`, and push
 5. Wait for CI → re-check status
 6. Repeat if still failing (up to 3 attempts, then ask the user)
 
 ## 6. Merging
+
+> **Only when the owner has explicitly told you to merge this PR.** Opening a PR never implies permission to merge. If the task or repo rules say only a human merges, skip this whole section.
 
 **With gh:**
 
@@ -337,7 +339,7 @@ git push -u origin HEAD
 
 # 7. Monitor CI (see Section 4)
 
-# 8. Merge when green (see Section 6)
+# 8. Stop here: report the PR and CI result. Merge only if the owner explicitly asked (Section 6).
 ```
 
 ## Useful PR Commands Reference
