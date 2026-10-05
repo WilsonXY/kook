@@ -21,7 +21,8 @@ You own the task end to end. Do not stop after the code works and ask "should I 
 5. **Commit and push** the branch (see `github` for commit style). A branch created from `origin/<default>` tracks the default branch, so a bare `git push` would aim at it: push with `git push -u origin HEAD` or unset the tracking first (`git branch --unset-upstream`).
 6. **Open the PR** against the default branch (see `github`). Body: what and why, how it was verified, review result (reviewer used, findings, any fallback), what was NOT verified.
 7. **Watch CI** until it finishes (`gh pr checks`). Fix failures and push. Answer or fix every review comment.
-8. **Report** in plain language: PR link, what changed, verification and review results, anything the owner must decide.
+8. **Preview (UI or user-visible changes).** If the owner will want to try the change, follow the preview procedure in the repo's AGENTS.md (push the branch first). If AGENTS.md has none, do not start your own server or expose ports; say in the report how to try it and ask. Never restart a shared dev server another session may be using.
+9. **Report** in plain language: PR link, what changed, verification and review results, anything the owner must decide.
 
 ## Limits (the only reasons to stop and ask)
 - Never merge, tag, deploy or push to the default branch. The owner approves those.
@@ -32,4 +33,5 @@ You own the task end to end. Do not stop after the code works and ask "should I 
 - Ending the turn while a test run is still going.
 - Calling your own review "independent".
 - Reporting done with no PR, or with CI not checked.
+- Starting your own dev server for a preview when the repo documents a shared one.
 - Unrelated changes sneaking into the diff.
