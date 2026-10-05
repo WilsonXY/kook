@@ -9,6 +9,9 @@ Harness-agnostic software-development skills for coding agents (any harness that
 | long-running-commands | Don't end your turn while a test/build runs; poll until the result is in |
 | requesting-code-review | Independent review of your diff before opening the PR |
 | github | gh CLI: PRs, issues, CI, review comments |
+| full-cycle | Own a task from first edit to open PR with green CI; routes to the skills above |
+
+Install: run `scripts/link-skills.sh` (repo root) after every pull. It links each skill into `~/.claude/skills/` (user level, so every worktree sees them). Re-running is safe: it adds new skills and removes links to deleted ones.
 
 Rules for this directory:
 - No references to a specific agent harness, orchestrator, harness-specific tool names, or any project/person. Say "search the codebase", not a tool name. Do not assume one language.

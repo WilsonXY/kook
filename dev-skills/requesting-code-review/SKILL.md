@@ -34,7 +34,11 @@ Run the project's own checks: tests, type-check, lint (the repo's AGENTS.md or R
 - [ ] Nothing outside the task's scope changed
 
 ## Step 5 - Independent reviewer
-The reviewer must be a DIFFERENT context from you: another agent/model, or at minimum a fresh session that has not seen your reasoning. If the task or the person who dispatched you names a reviewer and settings, use exactly that. Otherwise use any other agent available on the machine, read-only.
+The reviewer must be a DIFFERENT context from you: another agent/model, or at minimum a fresh session that has not seen your reasoning. If the task or the person who dispatched you names a reviewer and settings, use exactly that. Otherwise use this default routing:
+1. Codex CLI, model `gpt-6.1-sol`, reasoning effort high, run non-interactively at the repo root (`codex exec`, in a pseudo-terminal if needed), read-only.
+2. Fallback if Codex is unavailable (usage limit, not installed): OpenCode CLI, model `opencode/muse-spark-1.3-contributor-free`, effort xhigh (`opencode run`).
+3. If neither works, any other agent available on the machine, read-only.
+State which reviewer ran, and any fallback and why, in the PR.
 
 Give the reviewer only: the diff, the task's scope, the Step 2 findings, and these rules:
 - Review only; do not edit files.
