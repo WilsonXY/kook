@@ -18,7 +18,7 @@ You own the task end to end. Do not stop after the code works and ask "should I 
 2. **Implement on a feature branch** (never the default branch). New behaviour or a bug fix: use `test-driven-development`. Something fails and the cause is unknown: use `systematic-debugging`. Keep the diff inside the task's scope.
 3. **Verify.** Run the repo's own checks (named in AGENTS.md / README): type-check, tests, build, lint. If a run takes over a minute, follow `long-running-commands`. For UI changes, also look at it running, not only the tests. Report real results, never "should pass".
 4. **Independent review.** Follow `requesting-code-review`: a reviewer other than you, fix findings, re-verify.
-5. **Commit and push** the branch (see `github` for commit style).
+5. **Commit and push** the branch (see `github` for commit style). A branch created from `origin/<default>` tracks the default branch, so a bare `git push` would aim at it: push with `git push -u origin HEAD` or unset the tracking first (`git branch --unset-upstream`).
 6. **Open the PR** against the default branch (see `github`). Body: what and why, how it was verified, review result (reviewer used, findings, any fallback), what was NOT verified.
 7. **Watch CI** until it finishes (`gh pr checks`). Fix failures and push. Answer or fix every review comment.
 8. **Report** in plain language: PR link, what changed, verification and review results, anything the owner must decide.

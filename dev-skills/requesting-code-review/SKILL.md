@@ -13,7 +13,7 @@ metadata:
 
 **Core principle:** you must not be the only reviewer of your own work. A reviewer with fresh context finds what you miss. Do this after the change works and its tests pass, and before you open the PR.
 
-Skip only for documentation-only or pure config changes, or when the task says to skip review.
+Skip only when the task or the repo rules explicitly say to skip review. Documentation-only and config-only changes are NOT automatic exceptions: if the task asks for a review or the repo requires the full cycle, run it.
 
 ## Step 1 - Get the diff
 Diff your branch against its base (`git diff <base>...HEAD`), or `git diff --cached` / `git diff` for uncommitted work. Empty diff means nothing to review: stop and say so. For a very large diff, review file by file.
