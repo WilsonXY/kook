@@ -34,11 +34,10 @@ Treat any wall of text as a build failure and fix it before handing over:
 - Keep banners honest: update "RUNNING" notices when work finishes; link new pages from older reports.
 
 ## 3. Delivery (link, never attachment)
-- Serve the folder holding the report over HTTP on a private network address and give the user the full link. Check the link returns 200 (`curl -s -o /dev/null -w '%{http_code}'`) before reporting.
-- One folder per port; never reuse a port for a different folder. If the file server died, restart it before reporting.
-- When several reports exist, list every link, one labelled plain line each.
-- **Discover how to reach it:** check whether Tailscale is installed (`tailscale status`). If so, serve the folder locally (e.g. `python3 -m http.server <port> --bind 127.0.0.1`) and expose it with `tailscale serve --bg --https=<port> http://127.0.0.1:<port>`; the link is `https://<machine>.<tailnet>.ts.net:<port>/<file>` (machine name from `tailscale status`). It is private to the user's own devices. No Tailscale? Look for another private route the project documents (tunnel, VPN, LAN address), or ask.
-- Host, port and serving details are environment-specific: prefer what the project's AGENTS.md says, and ask the orchestrator if unclear.
+- Serve the folder privately and give the full link. Example: if `tailscale status` works, run `tailscale serve --bg --https=<port> http://127.0.0.1:<port>` over a local `python3 -m http.server`. Otherwise use whatever private route the project documents.
+- One folder per port. Never reuse a port.
+- `curl` the link for 200 before reporting; restart the server if it died.
+- Several reports: one labelled link per line.
 
 ## 4. Audit before handing over
 - Every touched page returns 200.
