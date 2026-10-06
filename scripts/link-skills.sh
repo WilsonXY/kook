@@ -2,6 +2,8 @@
 # Link every skill in dev-skills/ into a user-level skills folder so every
 # workspace and worktree sees them. Safe to re-run. Default target: ~/.claude/skills
 # Usage: scripts/link-skills.sh [target-dir]
+# Codex reads ~/.agents/skills (whole-folder link: ln -sfn <repo>/dev-skills ~/.agents/skills).
+# Antigravity (agy) has NO global dir: link <project>/.agents/skills per project.
 set -euo pipefail
 repo="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 src="$repo/dev-skills"
