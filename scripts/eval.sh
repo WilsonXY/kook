@@ -20,7 +20,7 @@ while [ $# -gt 1 ]; do
     *) usage ;;
   esac
 done
-[ $# -eq 1 ] && [ -f "$1" ] || usage
+if [ $# -ne 1 ] || [ ! -f "$1" ]; then usage; fi
 scenario="$1"
 if [ "$runs" -gt 1 ]; then
   pass=0
@@ -55,8 +55,9 @@ frontmatter="$(awk 'NR==1 && $0=="---" {f=1; next} f && $0=="---" {exit} f' "$sc
 skill="$(sed -n 's/^skill: \([a-z0-9-]*\)$/\1/p' <<<"$frontmatter")" # plain form only; doctor enforces it
 task="$(section Task)"
 criteria="$(section 'Pass if')"
-[ -n "$skill" ] && [ -n "${task//[[:space:]]/}" ] && [ -n "${criteria//[[:space:]]/}" ] ||
-  { echo "$scenario needs 'skill:' frontmatter, '## Task' and '## Pass if'" >&2; exit 2; }
+if [ -z "$skill" ] || [ -z "${task//[[:space:]]/}" ] || [ -z "${criteria//[[:space:]]/}" ]; then
+  echo "$scenario needs 'skill:' frontmatter, '## Task' and '## Pass if'" >&2; exit 2
+fi
 [[ "$skill" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]] || { echo "invalid skill name '$skill'" >&2; exit 2; }
 
 dir="dev-skills/$skill"
@@ -64,7 +65,8 @@ if [ -n "$ref" ]; then
   files="$(git -C "$repo" ls-tree -r --name-only "$ref" -- "$dir" | grep '\.md$' || true)"
   show() { git -C "$repo" show "$ref:$1"; }
 else
-  files="$(cd "$repo" && find "$dir" -name '*.md' 2>/dev/null | sort || true)"
+  files=""
+  if [ -d "$repo/$dir" ]; then files="$(cd "$repo" && find "$dir" -name '*.md' | sort)"; fi
   show() { cat "$repo/$1"; }
 fi
 grep -qx "$dir/SKILL.md" <<<"$files" || { echo "no skill '$skill' at ${ref:-working tree}" >&2; exit 2; }
