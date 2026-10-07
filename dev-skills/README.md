@@ -11,6 +11,7 @@ Harness-agnostic software-development skills for coding agents (any harness that
 | github | gh CLI: branches, commits, PRs, CI checks |
 | full-cycle | Own a task from first edit to open PR with green CI; routes to the skills above |
 | html-communicate | Present HTML reports as visual, easy-to-scan pages with working links |
+| retro | Look back at a session and file each lasting lesson for triage (owner-invoked) |
 
 Install once: run `scripts/install-skills.sh` from any kook checkout. It clones kook to `~/.local/share/kook`, the copy agents load skills from, and links each skill there (`~/.claude/skills/*`, `~/.agents/skills`). A systemd user timer then runs `scripts/sync-skills.sh` in that copy every 5 minutes: it fast-forwards to `origin/main` and relinks, so a merged PR goes live on its own. Never work in `~/.local/share/kook`; sync refuses to touch it if it is dirty or off `main`. Check for drift with `~/.local/share/kook/scripts/sync-skills.sh --check`.
 

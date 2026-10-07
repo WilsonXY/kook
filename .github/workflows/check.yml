@@ -23,6 +23,8 @@ jobs:
         run: python3 -m unittest scripts/test_doctor.py
       - name: Sync tests
         run: scripts/test-sync-skills.sh
+      - name: Thread reader tests
+        run: scripts/test-t3-thread.sh
       - name: Shellcheck
         run: shellcheck scripts/*.sh
       - name: Changelog line added

@@ -22,6 +22,10 @@ New skills: first check whether the behaviour composes from existing ones. If it
 
 Exempt from the bar: typo, link and formatting fixes; moves that keep behaviour; checks and tests.
 
+## Inbox
+
+Observed failures wait as GitHub issues labelled `inbox`. The `retro` skill files them, and so can any agent or the owner. Triage regularly: each becomes a PR, a `decisions/` file, or is closed with the reason.
+
 ## Buckets
 
 | Folder | Status | Installed for agents |
