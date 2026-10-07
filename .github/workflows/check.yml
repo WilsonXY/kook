@@ -1,0 +1,25 @@
+name: check
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml
+      - name: Skill structure
+        run: python3 scripts/doctor.py
+      - name: Doctor tests
+        run: python3 -m unittest scripts/test_doctor.py
+      - name: Sync tests
+        run: scripts/test-sync-skills.sh
+      - name: Shellcheck
+        run: shellcheck scripts/*.sh

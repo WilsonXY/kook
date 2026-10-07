@@ -39,6 +39,44 @@ expect_ok   "claude link points into live copy"     links_to "$claude/alpha" "$l
 expect_ok   "agents link points at live dev-skills" links_to "$agents" "$live/dev-skills"
 expect_ok   "check passes after sync"               sync --check
 
+printf '# profile\n' >"$tmp/dev/profile.md"; push "add profile"
+expect_ok   "sync with a profile"                   sync
+expect_ok   "claude reads the profile"              links_to "$HOME/.claude/CLAUDE.md" "$live/profile.md"
+expect_fail "no ~/.codex: nothing created there"    test -e "$HOME/.codex"
+mkdir "$HOME/.codex"
+expect_fail "check reports a missing profile link"  sync --check
+expect_ok   "sync links it"                         sync
+expect_ok   "codex reads the profile"               links_to "$HOME/.codex/AGENTS.md" "$live/profile.md"
+expect_ok   "check passes with profile links"       sync --check
+rm "$HOME/.codex/AGENTS.md"; echo mine >"$HOME/.codex/AGENTS.md"
+expect_ok   "own AGENTS.md: sync still succeeds"    sync
+expect_ok   "own AGENTS.md is untouched"            grep -qx mine "$HOME/.codex/AGENTS.md"
+expect_ok   "own AGENTS.md: check passes"           sync --check
+rm "$HOME/.codex/AGENTS.md"; ln -s "$tmp/mine.md" "$HOME/.codex/AGENTS.md"
+expect_ok   "own symlink: sync still succeeds"      sync
+expect_ok   "own symlink is untouched"              links_to "$HOME/.codex/AGENTS.md" "$tmp/mine.md"
+rm "$HOME/.codex/AGENTS.md"; ln -s "$tmp/dev/profile.md" "$HOME/.codex/AGENTS.md"
+expect_fail "check reports a profile link into another checkout" sync --check
+expect_ok   "sync repoints it"                      sync
+expect_ok   "profile link back on the live copy"    links_to "$HOME/.codex/AGENTS.md" "$live/profile.md"
+mkdir -p "$tmp/dev/private"; echo mine >"$tmp/dev/private/profile.md"
+rm "$HOME/.codex/AGENTS.md"; ln -s "$tmp/dev/private/profile.md" "$HOME/.codex/AGENTS.md"
+expect_ok   "own profile.md inside a kook checkout: sync succeeds" sync
+expect_ok   "  and leaves that symlink alone"       links_to "$HOME/.codex/AGENTS.md" "$tmp/dev/private/profile.md"
+rm "$HOME/.codex/AGENTS.md"; ln -s ../../dev/profile.md "$HOME/.codex/AGENTS.md"
+expect_fail "check reports a relative link into another checkout" sync --check
+expect_ok   "sync repoints it"                      sync
+expect_ok   "  to the live copy"                    links_to "$HOME/.codex/AGENTS.md" "$live/profile.md"
+rm "$HOME/.codex/AGENTS.md"; ln -s ../.local/share/kook/profile.md "$HOME/.codex/AGENTS.md"
+expect_ok   "a relative link to the live profile is fine" sync --check
+mv "$HOME/.codex" "$tmp/codex-real"; ln -s "$tmp/codex-real" "$HOME/.codex"
+rm "$HOME/.codex/AGENTS.md"; ln -s ../dev/profile.md "$HOME/.codex/AGENTS.md"
+expect_fail "symlinked ~/.codex: relative link into another checkout is reported" sync --check
+expect_ok   "sync repoints it"                      sync
+expect_ok   "  to the live copy"                    links_to "$HOME/.codex/AGENTS.md" "$live/profile.md"
+rm "$HOME/.codex"; mv "$tmp/codex-real" "$HOME/.codex"
+rm -r "$tmp/dev/private"
+
 add_skill beta; push "add beta"
 expect_fail "check reports live copy behind origin" sync --check
 expect_ok   "sync fast-forwards"                    sync
