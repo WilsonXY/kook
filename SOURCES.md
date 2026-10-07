@@ -22,4 +22,5 @@ The superpowers pin is the upstream head when the copy was made (2026-10-02); th
 | Scope bar, one file per decision, status buckets, changelog | [mattpocock/skills](https://github.com/mattpocock/skills) `SCOPE.md`, `.out-of-scope/`, buckets | `SCOPE.md`, `decisions/`, `writing/`, `vendor/` |
 | "Encode lessons in structure": mechanical rules become checks | poteto's [pstack](https://github.com/cursor/plugins/tree/main/pstack) | `scripts/doctor.py` |
 | Skill guards in CI | [EveryInc/compound-engineering-plugin](https://github.com/EveryInc/compound-engineering-plugin), [garrytan/gstack](https://github.com/garrytan/gstack) | `.github/workflows/check.yml` |
+| Watch a skill fail before changing it; grade with a fresh agent | [obra/superpowers](https://github.com/obra/superpowers) `writing-skills`; compound-engineering `ce-skill-work/references/evaluate.md` | `evals/`, `scripts/eval.sh` |
 | Prove UI changes on the real surface | pstack / p3-stack | `full-cycle` step 3, `github` `pr-workflow.md` |

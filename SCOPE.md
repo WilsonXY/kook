@@ -14,7 +14,7 @@ A change to a skill's behaviour, or a new skill, needs both:
 | A mechanical rule (format, a banned name, a missing link) | a check in `scripts/doctor.py`, not prose |
 | A fact about one project (port, test login, run command) | that project's `AGENTS.md` or scripts |
 | A fact about the owner's tools or this machine | `profile.md` |
-| A judgement that will recur in any repo | an edit to one skill in `dev-skills/` |
+| A judgement that will recur in any repo | an edit to one skill in `dev-skills/`, with a scenario in `evals/` that fails before and passes after |
 | A decision to do, or not do, something in Kook | a file in `decisions/` |
 | A one-off | nowhere |
 

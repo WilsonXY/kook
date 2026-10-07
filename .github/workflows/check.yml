@@ -25,6 +25,8 @@ jobs:
         run: scripts/test-sync-skills.sh
       - name: Thread reader tests
         run: scripts/test-t3-thread.sh
+      - name: Eval runner tests (stub agents, no model calls)
+        run: scripts/test-eval.sh
       - name: Shellcheck
         run: shellcheck scripts/*.sh
       - name: Changelog line added
