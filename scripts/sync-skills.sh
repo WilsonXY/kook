@@ -15,6 +15,11 @@ case "${1:-}" in "" | --check) mode="${1:-sync}" ;; *) echo "usage: $0 [--check]
 g() { git -C "$repo" "$@"; }
 issues=0
 problem() { echo "PROBLEM: $*" >&2; issues=$((issues + 1)); }
+origin="$(g remote get-url origin)"
+other_kook() { # is link target $1 a skill in some other clone of kook?
+  case "$1" in "$repo"/*) return 1 ;; */dev-skills/*) ;; *) return 1 ;; esac
+  [ "$(git -C "${1%/dev-skills/*}" remote get-url origin 2>/dev/null)" = "$origin" ]
+}
 
 if [ "$mode" = sync ]; then
   exec 9>"$(g rev-parse --absolute-git-dir)/sync-skills.lock"
@@ -35,6 +40,9 @@ if [ "$mode" = sync ] && [ "$issues" -eq 0 ]; then
   g merge --quiet --ff-only "origin/$branch" || problem "cannot fast-forward to origin/$branch"
   [ "$old" = "$(g rev-parse --short HEAD)" ] || echo "updated $old -> $(g rev-parse --short HEAD)"
   "$repo/scripts/link-skills.sh" "$claude" | grep -v '^ok:' || true
+  for l in "$claude"/*; do # links into another checkout that link-skills did not repoint: not on main
+    if [ -L "$l" ] && other_kook "$(readlink "$l")"; then rm "$l"; echo "removed $(basename "$l") (not on $branch)"; fi
+  done
   if [ -L "$agents" ] || [ ! -e "$agents" ]; then
     mkdir -p "$(dirname "$agents")"
     ln -sfn "$repo/dev-skills" "$agents"
@@ -49,10 +57,9 @@ for d in "$repo"/dev-skills/*/; do
 done
 for l in "$claude"/*; do
   [ -L "$l" ] || continue
-  case "$(readlink "$l")" in
-    "$repo"/dev-skills/*) ;;
-    */dev-skills/*) problem "$l links into another checkout: $(readlink "$l")" ;;
-  esac
+  t="$(readlink "$l")"
+  case "$t" in "$repo"/dev-skills/*) [ -f "$l/SKILL.md" ] || problem "$l is a dangling link: $t" ;; esac
+  ! other_kook "$t" || problem "$l links into another checkout: $t"
 done
 [ "$(readlink "$agents" 2>/dev/null)" = "$repo/dev-skills" ] || problem "$agents does not link to $repo/dev-skills"
 

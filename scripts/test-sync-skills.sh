@@ -53,6 +53,25 @@ expect_fail "check reports link into another checkout" sync --check
 expect_ok   "sync repoints it"                      sync
 expect_ok   "link is back on the live copy"         links_to "$claude/beta" "$live/dev-skills/beta"
 
+add_skill unmerged
+ln -sfn "$tmp/dev/dev-skills/unmerged" "$claude/unmerged"
+expect_fail "check reports a link to another checkout's unmerged skill" sync --check
+expect_ok   "sync removes it"                       sync
+expect_fail "unmerged skill's link is gone"         test -L "$claude/unmerged"
+expect_ok   "the other checkout is untouched"       test -f "$tmp/dev/dev-skills/unmerged/SKILL.md"
+rm -r "$tmp/dev/dev-skills/unmerged"
+
+mkdir -p "$tmp/other/dev-skills/theirs"; touch "$tmp/other/dev-skills/theirs/SKILL.md"
+ln -s "$tmp/other/dev-skills/theirs" "$claude/theirs"
+expect_ok   "link into a non-kook dev-skills is not a problem" sync --check
+expect_ok   "sync leaves it alone"                  sync
+expect_ok   "non-kook link kept"                    links_to "$claude/theirs" "$tmp/other/dev-skills/theirs"
+
+ln -s "$live/dev-skills/ghost" "$claude/ghost"
+expect_fail "check reports a dangling link into the live copy" sync --check
+expect_ok   "sync removes the dangling link"        sync
+expect_fail "dangling link is gone"                 test -L "$claude/ghost"
+
 git -C "$live" switch -q -c feature
 add_skill gamma; push "add gamma"
 expect_fail "sync refuses when live copy is off main" sync
