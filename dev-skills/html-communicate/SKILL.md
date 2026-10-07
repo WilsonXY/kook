@@ -34,7 +34,7 @@ Treat any wall of text as a build failure and fix it before handing over:
 - Keep banners honest: update "RUNNING" notices when work finishes; link new pages from older reports.
 
 ## 3. Delivery (link, never attachment)
-- Serve the folder privately and give the full link. Example: if `tailscale status` works, run `tailscale serve --bg --https=<port> http://127.0.0.1:<port>` over a local `python3 -m http.server`. Otherwise use whatever private route the project documents.
+- Serve the folder privately and give the full link. Use the private route the owner's global instructions or the project documents (for example a private HTTPS proxy over a local `python3 -m http.server`).
 - One folder per port. Never reuse a port.
 - `curl` the link for 200 before reporting; restart the server if it died.
 - Several reports: one labelled link per line.

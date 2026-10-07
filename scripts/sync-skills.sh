@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Keep the copy of kook that agents load skills from (the "live copy") on
 # origin/main, and keep ~/.claude/skills/* and ~/.agents/skills pointing into it.
+# Also links profile.md (the owner's personal setup) as the global instructions
+# file of each installed harness, unless that file is the owner's own.
 # Run it from the live copy; scripts/install-skills.sh sets that up plus a
 # systemd timer that runs this every 5 minutes. Never switches branches or
 # touches local changes: if the live copy is off main or dirty, it stops.
@@ -11,6 +13,7 @@ repo="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 branch=main
 claude="$HOME/.claude/skills"
 agents="$HOME/.agents/skills"
+profiles=("$HOME/.claude/CLAUDE.md" "$HOME/.codex/AGENTS.md")
 case "${1:-}" in "" | --check) mode="${1:-sync}" ;; *) echo "usage: $0 [--check]" >&2; exit 2 ;; esac
 g() { git -C "$repo" "$@"; }
 issues=0
@@ -20,6 +23,19 @@ other_kook() { # is link target $1 a skill in some other clone of kook?
   case "$1" in "$repo"/*) return 1 ;; */dev-skills/*) ;; *) return 1 ;; esac
   [ "$(git -C "${1%/dev-skills/*}" remote get-url origin 2>/dev/null)" = "$origin" ]
 }
+kook_profile() { # is link target $1 the root profile.md of some clone of kook?
+  case "$1" in */profile.md) ;; *) return 1 ;; esac
+  local d="${1%/profile.md}"
+  [ "$(git -C "$d" rev-parse --show-toplevel 2>/dev/null)" = "$(cd "$d" 2>/dev/null && pwd -P)" ] &&
+    [ "$(git -C "$d" remote get-url origin)" = "$origin" ]
+}
+link_target() { # where link $1 points, as an absolute path (relative targets resolve from the link's folder)
+  local t
+  t="$(readlink "$1")" || return 1
+  case "$t" in /*) ;; *) t="$(cd "$(dirname "$1")" && pwd -P)/$t" ;; esac # real folder first, then collapse ..
+  realpath -ms "$t"
+}
+wants_profile() { [ -f "$repo/profile.md" ] && [ -d "$(dirname "$1")" ]; } # harness installed
 
 if [ "$mode" = sync ]; then
   exec 9>"$(g rev-parse --absolute-git-dir)/sync-skills.lock"
@@ -47,6 +63,10 @@ if [ "$mode" = sync ] && [ "$issues" -eq 0 ]; then
     mkdir -p "$(dirname "$agents")"
     ln -sfn "$repo/dev-skills" "$agents"
   fi
+  for f in "${profiles[@]}"; do # never replace the owner's own file or symlink
+    wants_profile "$f" || continue
+    if { [ ! -e "$f" ] && [ ! -L "$f" ]; } || kook_profile "$(link_target "$f")"; then ln -sfn "$repo/profile.md" "$f"; fi
+  done
 fi
 
 [ "$(g rev-parse HEAD)" = "$(g rev-parse "origin/$branch")" ] || problem "$repo is not at origin/$branch"
@@ -62,6 +82,15 @@ for l in "$claude"/*; do
   ! other_kook "$t" || problem "$l links into another checkout: $t"
 done
 [ "$(readlink "$agents" 2>/dev/null)" = "$repo/dev-skills" ] || problem "$agents does not link to $repo/dev-skills"
+for f in "${profiles[@]}"; do
+  wants_profile "$f" || continue
+  t="$(link_target "$f" 2>/dev/null || true)"
+  if [ "$t" = "$repo/profile.md" ]; then :
+  elif [ ! -e "$f" ] && [ ! -L "$f" ]; then problem "$f does not link to $repo/profile.md"
+  elif kook_profile "$t"; then problem "$f links into another checkout: $t"
+  else echo "note: $f is your own file, so profile.md is not loaded there" >&2
+  fi
+done
 
 [ "$issues" -eq 0 ] || exit 1
 echo "ok: agents load $repo at $(g rev-parse --short HEAD)"

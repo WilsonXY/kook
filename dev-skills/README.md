@@ -17,7 +17,8 @@ Install once: run `scripts/install-skills.sh` from any kook checkout. It clones 
 Rules for this directory:
 - No references to a specific agent harness, orchestrator, harness-specific tool names, or any project/person. Say "search the codebase", not a tool name. Do not assume one language.
 - Where a skill mentions subagents, it must also say what to do without them.
-- Project facts belong in each project's `AGENTS.md`, not here.
+- Project facts belong in each project's `AGENTS.md`, not here. The owner's own setup (reviewer models, hosts, machine quirks) belongs in `profile.md` at the repo root.
+- `scripts/doctor.py` checks these rules where it can (CI runs it on every PR).
 - Add a skill only with evidence an agent needed it. Fewer skills beat more.
 
 Removed 2026-10-02 as noise for this workflow (still in git history): spike, dogfood, stacked-prs, codebase-inspection, node-inspect-debugger, python-debugpy, service-monitoring, linux-user-services.
