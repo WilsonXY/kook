@@ -72,6 +72,12 @@ expect_fail "check reports a dangling link into the live copy" sync --check
 expect_ok   "sync removes the dangling link"        sync
 expect_fail "dangling link is gone"                 test -L "$claude/ghost"
 
+add_skill husk; touch "$tmp/dev/dev-skills/husk/notes.md"; push "add husk"
+expect_ok   "sync links husk"                       sync
+rm "$tmp/dev/dev-skills/husk/SKILL.md"; push "husk loses SKILL.md"
+expect_ok   "sync after SKILL.md removed, folder kept" sync
+expect_fail "its link is removed"                   test -L "$claude/husk"
+
 git -C "$live" switch -q -c feature
 add_skill gamma; push "add gamma"
 expect_fail "sync refuses when live copy is off main" sync

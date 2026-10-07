@@ -24,6 +24,6 @@ done
 for l in "$dst"/*; do
   [ -L "$l" ] || continue
   t="$(readlink "$l")"
-  case "$t" in "$src"/*) [ -e "$l" ] || { rm "$l"; echo "removed stale $(basename "$l")"; } ;; esac
+  case "$t" in "$src"/*) [ -f "$l/SKILL.md" ] || { rm "$l"; echo "removed stale $(basename "$l")"; } ;; esac
 done
 echo "ok: $dst"
