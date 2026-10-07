@@ -4,26 +4,8 @@ Complete guide for managing the PR lifecycle. Each section shows the `gh` way fi
 
 ## Prerequisites
 
-- Authenticated with GitHub (see `references/auth.md`)
+- Authenticated with GitHub. With `gh` installed, `gh auth status` must pass; if it fails, stop and tell the owner. Without `gh`, use the `curl` fallbacks below, which need `GITHUB_TOKEN` already set in the environment. Never print or paste the token.
 - Inside a git repository with a GitHub remote
-
-### Quick Auth Detection
-
-```bash
-# Determine which method to use throughout this workflow
-if command -v gh &>/dev/null && gh auth status &>/dev/null; then
-  AUTH="gh"
-else
-  AUTH="git"
-  # Ensure we have a token for API calls
-  if [ -z "$GITHUB_TOKEN" ]; then
-    if grep -q "github.com" ~/.git-credentials 2>/dev/null; then
-      GITHUB_TOKEN=$(uv run python "<skill-dir>/scripts/git-credential-token.py")
-    fi
-  fi
-fi
-echo "Using: $AUTH"
-```
 
 ### Extracting Owner/Repo from the Git Remote
 

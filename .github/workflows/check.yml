@@ -11,6 +11,8 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -23,3 +25,8 @@ jobs:
         run: scripts/test-sync-skills.sh
       - name: Shellcheck
         run: shellcheck scripts/*.sh
+      - name: Changelog line added
+        if: github.event_name == 'pull_request'
+        run: |
+          git diff --name-only "origin/${{ github.base_ref }}...HEAD" | grep -qx CHANGELOG.md \
+            || { echo "::error::Add one line to CHANGELOG.md for this PR (see SCOPE.md)"; exit 1; }

@@ -8,7 +8,7 @@ Harness-agnostic software-development skills for coding agents (any harness that
 | systematic-debugging | Find the root cause before fixing |
 | long-running-commands | Don't end your turn while a test/build runs; poll until the result is in |
 | requesting-code-review | Independent review of your diff before opening the PR |
-| github | gh CLI: PRs, issues, CI, review comments |
+| github | gh CLI: branches, commits, PRs, CI checks |
 | full-cycle | Own a task from first edit to open PR with green CI; routes to the skills above |
 | html-communicate | Present HTML reports as visual, easy-to-scan pages with working links |
 
@@ -21,6 +21,4 @@ Rules for this directory:
 - `scripts/doctor.py` checks these rules where it can (CI runs it on every PR).
 - Add a skill only with evidence an agent needed it. Fewer skills beat more.
 
-Removed 2026-10-02 as noise for this workflow (still in git history): spike, dogfood, stacked-prs, codebase-inspection, node-inspect-debugger, python-debugpy, service-monitoring, linux-user-services.
-
-Attribution: systematic-debugging, test-driven-development and requesting-code-review are adapted from obra/superpowers (MIT); github originates from Hermes Agent (Nous Research, MIT).
+Removed skills and the reasons: `decisions/` at the repo root. Attribution and upstream pins: `SOURCES.md`.
