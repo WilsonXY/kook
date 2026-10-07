@@ -134,6 +134,21 @@ The response JSON includes the PR `number` — save it for later commands.
 
 To create as a draft, add `"draft": true` to the JSON body.
 
+### Attach UI Proof (screenshots, video)
+
+GitHub hosts the file and shows it in the PR (video as a player). Needs gh 2.99+ (check with `gh pr edit --help | grep -- --attach`) and push access to the repo.
+
+```bash
+gh pr edit 123 \
+  --attach './proof/02-saved.png#Expense saved after retry' \
+  --attach ./proof/flow.webm
+```
+
+- Also works on `gh pr create` and `gh pr comment`. Without a body flag the file is appended to the existing body; a body reference like `![Saved](./proof/02-saved.png)` is rewritten to the uploaded URL.
+- Limits: images 10 MB; video 10 MB on free plans, 100 MB on paid.
+- Check the result: `gh pr view 123 --json body -q .body` must show uploaded URLs, not local paths.
+- No gh 2.99+, no push access, or curl only: this guide has no upload fallback; don't hand-roll gh's upload endpoint. Say so in the PR and list the files for the owner to drag into it; never paste a local path as if it were proof.
+
 ## 4. Monitoring CI Status
 
 ### Check CI Status
