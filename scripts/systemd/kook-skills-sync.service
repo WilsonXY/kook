@@ -1,0 +1,6 @@
+[Unit]
+Description=Keep the kook skills that agents load on origin/main
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/share/kook/scripts/sync-skills.sh
