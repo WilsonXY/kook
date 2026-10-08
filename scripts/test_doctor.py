@@ -157,6 +157,51 @@ class Doctor(unittest.TestCase):
         self.add("gamma", body="Review with Codex CLI.")
         self.assertFails("Codex")
 
+    def scenario(self, folder, name="s", skill=None, task="Do it.", passif="- it works"):
+        d = self.repo / "evals" / folder
+        d.mkdir(parents=True, exist_ok=True)
+        body = f"---\nskill: {skill or folder}\n---\n"
+        if task is not None:
+            body += f"## Task\n{task}\n\n"
+        if passif is not None:
+            body += f"## Pass if\n{passif}\n"
+        (d / f"{name}.md").write_text(body)
+
+    def test_valid_scenario_passes(self):
+        self.scenario("alpha")
+        code, out = self.run_doctor()
+        self.assertEqual(code, 0, out)
+
+    def test_scenario_for_missing_skill_fails(self):
+        self.scenario("ghost")
+        self.assertFails("ghost")
+
+    def test_scenario_skill_must_match_folder(self):
+        self.scenario("alpha", skill="beta")
+        self.assertFails("evals/alpha/s.md")
+
+    def test_scenario_skill_must_be_plain(self):
+        self.scenario("alpha", skill="'alpha'")
+        self.assertFails("skill: alpha")
+
+    def test_scenario_with_two_skill_lines_fails(self):
+        d = self.repo / "evals" / "alpha"
+        d.mkdir(parents=True, exist_ok=True)
+        (d / "s.md").write_text("---\nskill: beta\nskill: alpha\n---\n## Task\nx\n\n## Pass if\n- y\n")
+        self.assertFails("evals/alpha/s.md")
+
+    def test_scenario_without_criteria_fails(self):
+        self.scenario("alpha", passif=None)
+        self.assertFails("Pass if")
+
+    def test_scenario_with_empty_task_before_criteria_fails(self):
+        self.scenario("alpha", task="")
+        self.assertFails("Task")
+
+    def test_scenario_without_task_fails(self):
+        self.scenario("alpha", task=None)
+        self.assertFails("Task")
+
 
 if __name__ == "__main__":
     unittest.main()
