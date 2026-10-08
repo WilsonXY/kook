@@ -10,6 +10,12 @@ Used by `requesting-code-review` when the task names no reviewer. Try in order:
 ## Sharing reports and previews
 Private links go over Tailscale: if `tailscale status` works, run `tailscale serve --bg --https=<port> http://127.0.0.1:<port>` over a local `python3 -m http.server`.
 
+## Session history
+- Pasted UUIDs are usually T3 Code thread ids. Read one with `~/.local/share/kook/scripts/t3-thread.sh <thread-id>` (add `--users-only` for just the owner's messages).
+
+## Skill inbox
+Lessons about skills and agent setup (from `retro` or noticed mid-task) go to GitHub issues on `WilsonXY/kook` with the label `inbox`: `gh issue create -R WilsonXY/kook --label inbox`. The repo is public: paraphrase, cite thread ids, and leave out secrets and private details.
+
 ## This machine
 - `/tmp` is a small RAM disk that is often nearly full. For large downloads or builds, set `TMPDIR` to a folder under `$HOME`.
 - Kook skills load from `~/.local/share/kook`, a copy a timer keeps on `origin/main`. Never work in it; work in `~/projects/kook` or a worktree.

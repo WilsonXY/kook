@@ -78,6 +78,25 @@ for name, (rel, folder) in skills.items():  # the skill and its reference files
             for ref in {"".join(groups) for groups in ROUTE.findall(line)} - set(skills):
                 report("FAIL", f"{f.relative_to(repo)}:{ln}", f"routes to `{ref}`, which is not a skill in this repo")
 
+# Behaviour scenarios for scripts/eval.sh: evals/<skill>/<scenario>.md
+for f in sorted((repo / "evals").glob("*/*.md")):
+    rel, folder = f.relative_to(repo), f.parent.name
+    text = f.read_text()
+    m = re.match(r"---\n(.*?)\n---\n", text, re.S)
+    try:
+        meta = yaml.safe_load(m.group(1)) if m else None
+    except yaml.YAMLError:
+        meta = None
+    if folder not in portable:
+        report("FAIL", rel, f"evals/{folder}/ does not match a skill in {PORTABLE}/")
+    skill_lines = re.findall(r"^skill:.*$", m.group(1), re.M) if m else []
+    if not isinstance(meta, dict) or skill_lines != [f"skill: {folder}"]:
+        report("FAIL", rel, f"frontmatter must have the plain line 'skill: {folder}' (no quotes or comments)")
+    for heading in ("Task", "Pass if"):
+        sec = re.search(rf"^## {heading}\n(.*?)(?=^## |\Z)", text, re.M | re.S)
+        if not sec or not sec.group(1).strip():
+            report("FAIL", rel, f"needs a non-empty '## {heading}' section")
+
 readme = portable_root / "README.md"
 if portable or readme.exists():
     listed = set(re.findall(r"^\|\s*([a-z][a-z0-9-]*)\s*\|", readme.read_text(), re.M)) if readme.exists() else set()

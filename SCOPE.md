@@ -14,13 +14,17 @@ A change to a skill's behaviour, or a new skill, needs both:
 | A mechanical rule (format, a banned name, a missing link) | a check in `scripts/doctor.py`, not prose |
 | A fact about one project (port, test login, run command) | that project's `AGENTS.md` or scripts |
 | A fact about the owner's tools or this machine | `profile.md` |
-| A judgement that will recur in any repo | an edit to one skill in `dev-skills/` |
+| A judgement that will recur in any repo | an edit to one skill in `dev-skills/`, with a scenario in `evals/` that fails before and passes after |
 | A decision to do, or not do, something in Kook | a file in `decisions/` |
 | A one-off | nowhere |
 
 New skills: first check whether the behaviour composes from existing ones. If it does, it doesn't get a skill.
 
 Exempt from the bar: typo, link and formatting fixes; moves that keep behaviour; checks and tests.
+
+## Inbox
+
+Observed failures wait as GitHub issues labelled `inbox`. The `retro` skill files them, and so can any agent or the owner. Triage regularly: each becomes a PR, a `decisions/` file, or is closed with the reason.
 
 ## Buckets
 
