@@ -48,6 +48,10 @@ class Doctor(unittest.TestCase):
         self.add("gamma", fm_name="gama")
         self.assertFails("gamma/SKILL.md")
 
+    def test_same_name_in_two_buckets_fails(self):
+        self.add("alpha", where="writing")
+        self.assertFails("both install into one skills folder")
+
     def test_missing_frontmatter(self):
         (self.repo / "dev-skills" / "alpha" / "SKILL.md").write_text("no frontmatter\n")
         self.assertFails("no frontmatter")
