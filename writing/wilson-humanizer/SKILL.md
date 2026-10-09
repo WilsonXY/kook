@@ -52,7 +52,7 @@ Ensure related items are categorially sound and logically parallel:
 ### Lever 3: Simple, Direct Feature Descriptions
 Avoid over-engineering feature summaries into breathless marketing chains:
 - *Don't write:* "To keep exploration practical and unburdensome, the app briefly incorporates an AI-driven journey planner that checks real-time web data to stitch together a sensible daily route tailored to user preferences."
-- *Do write:* "To save users from spending hours searching online, the app includes an AI-assisted daily planner that scans the web for events happening that day, then puts together a daily itinerary based on the user's location and interests."
+- *Do write:* "The app includes an AI-assisted daily planner that checks live web data and puts together a daily route based on the user's preferences."
 
 ### Lever 4: Continuous Narrative Paragraphs
 - In formal proposal chapters, introductions, and project narratives, write in clean, cohesive paragraphs.
