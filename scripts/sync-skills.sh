@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Keep the copy of kook that agents load skills from (the "live copy") on
-# origin/main, and keep ~/.claude/skills/* and ~/.agents/skills pointing into it.
+# origin/main, and keep ~/.claude/skills/* and ~/.agents/skills/* pointing into it.
 # Also links profile.md (the owner's personal setup) as the global instructions
 # file of each installed harness, unless that file is the owner's own.
 # Run it from the live copy; scripts/install-skills.sh sets that up plus a
@@ -13,15 +13,20 @@ repo="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 branch=main
 claude="$HOME/.claude/skills"
 agents="$HOME/.agents/skills"
+buckets=(dev-skills writing vendor) # same list as link-skills.sh
 profiles=("$HOME/.claude/CLAUDE.md" "$HOME/.codex/AGENTS.md")
 case "${1:-}" in "" | --check) mode="${1:-sync}" ;; *) echo "usage: $0 [--check]" >&2; exit 2 ;; esac
 g() { git -C "$repo" "$@"; }
 issues=0
 problem() { echo "PROBLEM: $*" >&2; issues=$((issues + 1)); }
 origin="$(g remote get-url origin)"
-other_kook() { # is link target $1 a skill in some other clone of kook?
-  case "$1" in "$repo"/*) return 1 ;; */dev-skills/*) ;; *) return 1 ;; esac
-  [ "$(git -C "${1%/dev-skills/*}" remote get-url origin 2>/dev/null)" = "$origin" ]
+other_kook() { # is link target $1 a skill (<clone>/<bucket>/<name>) in some other clone of kook?
+  local b
+  case "$1" in "$repo"/*) return 1 ;; esac
+  for b in "${buckets[@]}"; do
+    case "$1" in */"$b"/*) [ "$(git -C "${1%/"$b"/*}" remote get-url origin 2>/dev/null)" = "$origin" ] && return 0 ;; esac
+  done
+  return 1
 }
 kook_profile() { # is link target $1 the root profile.md of some clone of kook?
   case "$1" in */profile.md) ;; *) return 1 ;; esac
@@ -55,14 +60,13 @@ if [ "$mode" = sync ] && [ "$issues" -eq 0 ]; then
   old="$(g rev-parse --short HEAD)"
   g merge --quiet --ff-only "origin/$branch" || problem "cannot fast-forward to origin/$branch"
   [ "$old" = "$(g rev-parse --short HEAD)" ] || echo "updated $old -> $(g rev-parse --short HEAD)"
-  "$repo/scripts/link-skills.sh" "$claude" | grep -v '^ok:' || true
-  for l in "$claude"/*; do # links into another checkout that link-skills did not repoint: not on main
-    if [ -L "$l" ] && other_kook "$(readlink "$l")"; then rm "$l"; echo "removed $(basename "$l") (not on $branch)"; fi
+  if [ -L "$agents" ]; then rm "$agents"; echo "$agents is now a folder of links"; fi # was one link to dev-skills/
+  for dst in "$claude" "$agents"; do
+    "$repo/scripts/link-skills.sh" "$dst" | grep -v '^ok:' || true
+    for l in "$dst"/*; do # links into another checkout that link-skills did not repoint: not on main
+      if [ -L "$l" ] && other_kook "$(readlink "$l")"; then rm "$l"; echo "removed $(basename "$l") (not on $branch)"; fi
+    done
   done
-  if [ -L "$agents" ] || [ ! -e "$agents" ]; then
-    mkdir -p "$(dirname "$agents")"
-    ln -sfn "$repo/dev-skills" "$agents"
-  fi
   for f in "${profiles[@]}"; do # never replace the owner's own file or symlink
     wants_profile "$f" || continue
     if { [ ! -e "$f" ] && [ ! -L "$f" ]; } || kook_profile "$(link_target "$f")"; then ln -sfn "$repo/profile.md" "$f"; fi
@@ -70,18 +74,22 @@ if [ "$mode" = sync ] && [ "$issues" -eq 0 ]; then
 fi
 
 [ "$(g rev-parse HEAD)" = "$(g rev-parse "origin/$branch")" ] || problem "$repo is not at origin/$branch"
-for d in "$repo"/dev-skills/*/; do
-  [ -f "$d/SKILL.md" ] || continue
-  n="$(basename "$d")"
-  [ "$(readlink "$claude/$n" 2>/dev/null)" = "${d%/}" ] || problem "$claude/$n does not link to ${d%/}"
+[ ! -L "$agents" ] || problem "$agents is one link, not a folder of links"
+for dst in "$claude" "$agents"; do
+  for b in "${buckets[@]}"; do
+    for d in "$repo/$b"/*/; do
+      [ -f "$d/SKILL.md" ] || continue
+      n="$(basename "$d")"
+      [ "$(readlink "$dst/$n" 2>/dev/null)" = "${d%/}" ] || problem "$dst/$n does not link to ${d%/}"
+    done
+  done
+  for l in "$dst"/*; do
+    [ -L "$l" ] || continue
+    t="$(readlink "$l")"
+    case "$t" in "$repo"/*) [ -f "$l/SKILL.md" ] || problem "$l is a dangling link: $t" ;; esac
+    ! other_kook "$t" || problem "$l links into another checkout: $t"
+  done
 done
-for l in "$claude"/*; do
-  [ -L "$l" ] || continue
-  t="$(readlink "$l")"
-  case "$t" in "$repo"/dev-skills/*) [ -f "$l/SKILL.md" ] || problem "$l is a dangling link: $t" ;; esac
-  ! other_kook "$t" || problem "$l links into another checkout: $t"
-done
-[ "$(readlink "$agents" 2>/dev/null)" = "$repo/dev-skills" ] || problem "$agents does not link to $repo/dev-skills"
 for f in "${profiles[@]}"; do
   wants_profile "$f" || continue
   t="$(link_target "$f" 2>/dev/null || true)"

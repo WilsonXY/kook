@@ -62,6 +62,8 @@ for md in sorted(repo.rglob("SKILL.md")):
     words = len(body.split())
     if words > WORD_BUDGET:
         report("WARN", rel, f"{words} words (budget {WORD_BUDGET}); move detail into references/")
+    if md.parent.name in skills:  # every bucket is linked into one skills folder
+        report("FAIL", rel, f"same name as {skills[md.parent.name][0]}; both install into one skills folder")
     skills[md.parent.name] = (rel, md.parent)
 
 portable_root = repo / PORTABLE

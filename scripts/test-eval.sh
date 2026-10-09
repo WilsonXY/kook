@@ -77,6 +77,28 @@ run --skill-only --runs 3 --ref HEAD "$repo/evals/demo/banana.md" && r=0 || r=$?
 check "--skill-only works with --runs and --ref" test "$r" -eq 0
 check "  and every repeated run left references out" fails grep -l 'REFERENCE-TEXT' "$tmp"/stub/prompt-*.txt
 
+# --with: another installed skill, from any bucket, loaded alongside
+mkdir -p "$repo/vendor/helper"
+printf -- '---\nname: helper\ndescription: "Helper."\n---\nHELPER-TEXT\n' >"$repo/vendor/helper/SKILL.md"
+git -C "$repo" add vendor && git -C "$repo" -c user.name=t -c user.email=t@t commit -qm helper
+run --with helper "$repo/evals/demo/banana.md" || true
+check "--with loads the other skill"           grep -q 'HELPER-TEXT' "$tmp/stub/prompt-0.txt"
+check "  after the skill under test"           grep -qz 'NOW-SAY-APPLE.*HELPER-TEXT' "$tmp/stub/prompt-0.txt"
+check "  and says both are loaded"             grep -q 'skills below' "$tmp/stub/prompt-0.txt"
+check "--with an unknown skill is an error"    fails run --with missing "$repo/evals/demo/banana.md"
+check "--with a bad name is an error"          fails run --with ../x "$repo/evals/demo/banana.md"
+run --runs 3 --ref HEAD --with helper "$repo/evals/demo/banana.md" && r=0 || r=$?
+check "--with works with --runs and --ref"     test "$r" -eq 0
+check "  and every repeated run loaded it"     test "$(grep -l 'HELPER-TEXT' "$tmp"/stub/prompt-*.txt | wc -l)" -eq 3
+check "  and the result line names it"         grep -qx '3/3 PASS  .*banana.md @ HEAD +helper' "$tmp/stdout"
+mkdir -p "$repo/vendor/helper/references"; printf 'HELPER-REF\n' >"$repo/vendor/helper/references/more.md"
+run --skill-only --with helper "$repo/evals/demo/banana.md" || true
+check "--skill-only --with keeps the other SKILL.md" grep -q 'HELPER-TEXT' "$tmp/stub/prompt-0.txt"
+check "  and leaves out its references"        fails grep -q 'HELPER-REF' "$tmp/stub/prompt-0.txt"
+check "  but names them"                       grep -q 'vendor/helper/references/more.md' "$tmp/stub/prompt-0.txt"
+run --skill-only "$repo/evals/demo/banana.md" || true
+check "without --with, no other skill"         fails grep -q 'HELPER-TEXT' "$tmp/stub/prompt-0.txt"
+
 # Repeated runs: a pass rate, passing only on a majority
 run --runs 3 --ref HEAD "$repo/evals/demo/banana.md" && r=0 || r=$?
 check "--runs 3 on a passing skill exits 0"    test "$r" -eq 0

@@ -17,7 +17,7 @@ expect_ok()   { local d="$1"; shift; if "$@" >"$tmp/out" 2>&1; then passed=$((pa
 expect_fail() { local d="$1"; shift; if "$@" >"$tmp/out" 2>&1; then failed=$((failed+1)); echo "FAIL (expected failure): $d"; sed 's/^/  | /' "$tmp/out"; else passed=$((passed+1)); fi; }
 links_to()    { [ "$(readlink "$1")" = "$2" ]; }
 sync()        { "$live/scripts/sync-skills.sh" "$@"; }
-add_skill()   { mkdir -p "$tmp/dev/dev-skills/$1"; printf -- '---\nname: %s\n---\n' "$1" >"$tmp/dev/dev-skills/$1/SKILL.md"; }
+add_skill()   { local b="${2:-dev-skills}"; mkdir -p "$tmp/dev/$b/$1"; printf -- '---\nname: %s\n---\n' "$1" >"$tmp/dev/$b/$1/SKILL.md"; }
 push()        { git -C "$tmp/dev" add -A; git -C "$tmp/dev" commit -qm "$1"; git -C "$tmp/dev" push -q origin HEAD:main; }
 
 git init -q --bare -b main "$tmp/origin.git"
@@ -36,8 +36,39 @@ expect_ok   "install copies the units"              test -f "$HOME/.config/syste
 expect_ok   "install is safe to re-run"             env PATH="$tmp/bin:$PATH" "$tmp/dev/scripts/install-skills.sh"
 expect_ok   "sync succeeds"                         sync
 expect_ok   "claude link points into live copy"     links_to "$claude/alpha" "$live/dev-skills/alpha"
-expect_ok   "agents link points at live dev-skills" links_to "$agents" "$live/dev-skills"
+expect_ok   "agents link points into live copy"     links_to "$agents/alpha" "$live/dev-skills/alpha"
+expect_ok   "agents skills dir is a real folder"     test -d "$agents" -a ! -L "$agents"
 expect_ok   "check passes after sync"               sync --check
+
+rm -r "$agents"; ln -s "$live/dev-skills" "$agents"
+expect_fail "check reports the old whole-folder link" sync --check
+expect_ok   "sync replaces it"                      sync
+expect_ok   "  with a real folder"                  test -d "$agents" -a ! -L "$agents"
+expect_ok   "  of skill links"                      links_to "$agents/alpha" "$live/dev-skills/alpha"
+expect_ok   "  and the live copy stays clean"       test -z "$(git -C "$live" status --porcelain)"
+
+add_skill prose writing; add_skill borrowed vendor; push "add writing and vendor skills"
+expect_ok   "sync with every bucket"                sync
+expect_ok   "writing skill linked for claude"       links_to "$claude/prose" "$live/writing/prose"
+expect_ok   "vendor skill linked for claude"        links_to "$claude/borrowed" "$live/vendor/borrowed"
+expect_ok   "writing skill linked for agents"       links_to "$agents/prose" "$live/writing/prose"
+expect_ok   "vendor skill linked for agents"        links_to "$agents/borrowed" "$live/vendor/borrowed"
+expect_ok   "check passes with every bucket"        sync --check
+rm "$agents/prose"
+expect_fail "check reports a missing agents link"   sync --check
+ln -sfn "$tmp/dev/writing/prose" "$claude/prose"
+expect_fail "check reports a writing link into another checkout" sync --check
+expect_ok   "sync repoints it"                      sync
+expect_ok   "  to the live copy"                    links_to "$claude/prose" "$live/writing/prose"
+expect_ok   "  and relinks the agents one"          links_to "$agents/prose" "$live/writing/prose"
+mkdir -p "$agents/own"; touch "$agents/own/SKILL.md"
+expect_ok   "own skill in the agents dir: sync succeeds" sync
+expect_ok   "  and keeps it"                        test -f "$agents/own/SKILL.md"
+expect_ok   "  and check passes"                    sync --check
+rm -r "$tmp/dev/vendor/borrowed"; push "remove borrowed"
+expect_ok   "sync after a vendor skill is deleted"  sync
+expect_fail "its claude link is removed"            test -L "$claude/borrowed"
+expect_fail "its agents link is removed"            test -L "$agents/borrowed"
 
 printf '# profile\n' >"$tmp/dev/profile.md"; push "add profile"
 expect_ok   "sync with a profile"                   sync
@@ -131,9 +162,6 @@ rm "$live/stray"
 expect_ok   "sync recovers once clean"              sync
 expect_ok   "skill added meanwhile is linked"       links_to "$claude/gamma" "$live/dev-skills/gamma"
 
-rm "$agents"; mkdir "$agents"
-expect_fail "real ~/.agents/skills folder is reported" sync
-expect_ok   "real folder left alone"                test -d "$agents" -a ! -L "$agents"
 
 expect_fail "unknown argument is rejected"          sync --bogus
 

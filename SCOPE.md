@@ -31,10 +31,10 @@ Observed failures wait as GitHub issues labelled `inbox`. The `retro` skill file
 | Folder | Status | Installed for agents |
 |---|---|---|
 | `dev-skills/` | active, portable, held to `dev-skills/README.md` rules | yes |
-| `writing/` | active, the owner's writing and report skills | no |
-| `vendor/` | third-party skills kept unmodified; see `SOURCES.md` | no |
+| `writing/` | active, the owner's writing and report skills | yes |
+| `vendor/` | third-party skills kept unmodified; see `SOURCES.md` | yes |
 
-Add a bucket (for example `in-progress/` or `frozen/`) only when a skill needs that status.
+Add a bucket (for example `in-progress/` or `frozen/`) only when a skill needs that status. To install it, add it to `buckets` in `scripts/link-skills.sh` and `scripts/sync-skills.sh`. Skill names are unique across buckets, because all of them link into one folder.
 
 ## Every PR
 
