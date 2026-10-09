@@ -8,7 +8,7 @@ Used by `requesting-code-review` when the task names no reviewer. Try in order:
 2. Fallback if Codex is unavailable (usage limit, not installed): OpenCode CLI, model `opencode/muse-spark-1.3-contributor-free`, effort xhigh (`opencode run`).
 
 ## Sharing reports and previews
-Private links go over Tailscale: if `tailscale status` works, run `tailscale serve --bg --https=<port> http://127.0.0.1:<port>` over a local `python3 -m http.server`.
+Private links go over Tailscale: if `tailscale status` works, run `tailscale serve --bg --https=<port> http://127.0.0.1:<port>` over a local `python3 -m http.server <port> --bind 127.0.0.1 --directory <folder>`. Without `--bind` it listens on every interface, so the LAN can read it too. The folder holds only pages meant to be read: everything in it can be browsed.
 
 ## Session history
 - Pasted UUIDs are usually T3 Code thread ids. Read one with `~/.local/share/kook/scripts/t3-thread.sh <thread-id>` (add `--users-only` for just the owner's messages).

@@ -68,11 +68,11 @@ When editing or drafting text with this skill:
 1. **Step 1: Scan and Purge Pitch-Deck Vocabulary**
    - Strike out: *bridge the gap, touchpoint, friction, fragmented landscape, holistic, delve, robust, foster, multifaceted, seamless.*
 2. **Step 2: Inject Grounded Realism**
-   - Replace every generic placeholder with a specific local place, tool, app name, or scenario.
+   - Replace generic placeholders with a specific local place, tool, app name, or scenario taken from the draft, the user's notes or a cited source. Never invent one; if none is given, write the sentence plainly or ask.
 3. **Step 3: Break the Rhythms**
    - Count the three-part lists and cut half of them.
    - Dismantle balanced X-vs-Y contrasts.
 4. **Step 4: Soften and Defend Claims**
-   - Replace absolute quantifiers (*most, every, completely*) with grounded qualifiers (*many, often, tend to*).
+   - Keep a quantifier the draft supports (a survey result, a citation). Flag one it doesn't (*most, every, completely*) and ask for the source; softening it to *many* or *often* still leaves a claim with no support.
 5. **Step 5: The Read-Aloud Test**
    - Read the paragraph aloud. If a sentence feels like a brochure or a pitch deck slide, rewrite it until it sounds like an honest, smart student explaining it across a desk.

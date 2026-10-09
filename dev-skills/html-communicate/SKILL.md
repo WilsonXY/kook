@@ -33,7 +33,7 @@ Treat any wall of text as a build failure and fix it before handing over:
 ## 2. Technical rules
 - **One self-contained file** (inline CSS/JS/SVG, no external assets). Phone-friendly: `viewport` meta, no horizontal overflow at 390px.
 - When updating an existing family of reports, reuse its style.
-- **Dark mode: true black `#000000` with neutral greys, not blue-tinted.** Keep severity colours (red/amber/green). Save the previous version as `<name>.<variant>-backup.html` before restyling.
+- **Dark mode: true black `#000000` with neutral greys, not blue-tinted.** Keep severity colours (red/amber/green). Save the previous version as `<name>.<variant>-backup.html` before restyling, outside the served folder: anything in it can be browsed.
 - Keep banners honest: update "RUNNING" notices when work finishes; link new pages from older reports.
 
 ## 3. Delivery (link, never attachment)
@@ -46,7 +46,7 @@ Treat any wall of text as a build failure and fix it before handing over:
 - Every touched page returns 200.
 - Structure check: heading list, `<details>` and chart counts, email/secret scan.
 - Grep the page for each specific fact you were asked to include; if one is missing, say so.
-- Render at 390px and desktop yourself; do not report "I haven't looked at it".
+- Render at 390px and desktop yourself. If you can't (no browser tool), say so in the report; never imply you looked.
 - **Comprehension check:** from the first screen alone, state the page's answer in one sentence (for a recommendation, with its scope and what stays unchanged). If you can't, rewrite the top of the page.
 - Report: link first, 2-3 lines on what is on it, what else changed, what the user must decide. Plain language.
 
