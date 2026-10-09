@@ -11,4 +11,4 @@
 
 **Rejected.**
 - Splitting the writing skills into their own repo: two installs for one owner.
-- Splitting `full-cycle` into phase files now: deferred until behaviour evals exist, because it is the most-used skill.
+- Splitting `full-cycle` into phase files now: deferred until behaviour evals existed, because it is the most-used skill. Tried in #19 and dropped: see `2026-10-09-full-cycle-not-split.md`.

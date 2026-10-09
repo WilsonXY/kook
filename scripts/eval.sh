@@ -2,21 +2,24 @@
 # Run one behaviour scenario against a skill. A fresh agent gets the skill
 # (SKILL.md + references) and the scenario's task, never its pass criteria; a
 # second fresh agent grades the reply against them. Dry run: no tools, no edits.
-# Usage: scripts/eval.sh [--runs N] [--ref <git-ref>] evals/<skill>/<scenario>.md
+# Usage: scripts/eval.sh [--runs N] [--ref <git-ref>] [--skill-only] evals/<skill>/<scenario>.md
 #   --ref   load the skill from a git ref instead of the working tree (before/after runs)
 #   --runs  repeat N times and report the pass rate; passes only on a majority.
 #           Single runs vary, so use N >= 3 for any result you act on.
+#   --skill-only  give the agent SKILL.md only and just list its reference files: the
+#           worst case where it never opens them (use when a change moves text to references/)
 # Agents: KOOK_EVAL_AGENT is a command that reads a prompt on stdin and prints the
 #   reply (default: codex exec, read-only, ephemeral). KOOK_EVAL_JUDGE defaults to it.
 # Transcripts go to $KOOK_EVAL_OUT (default ~/.local/state/kook-evals). Exit 0 PASS, 1 FAIL.
 set -euo pipefail
 repo="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-usage() { echo "usage: $0 [--runs N] [--ref <git-ref>] evals/<skill>/<scenario>.md" >&2; exit 2; }
-ref="" runs=1
+usage() { echo "usage: $0 [--runs N] [--ref <git-ref>] [--skill-only] evals/<skill>/<scenario>.md" >&2; exit 2; }
+ref="" runs=1 skill_only=""
 while [ $# -gt 1 ]; do
   case "$1" in
     --ref) [ $# -ge 3 ] || usage; ref="$2"; shift 2 ;;
     --runs) [[ "${2:-}" =~ ^[1-9][0-9]*$ ]] || usage; runs="$2"; shift 2 ;;
+    --skill-only) skill_only=1; shift ;;
     *) usage ;;
   esac
 done
@@ -25,9 +28,9 @@ scenario="$1"
 if [ "$runs" -gt 1 ]; then
   pass=0
   for _ in $(seq "$runs"); do
-    if "$0" ${ref:+--ref "$ref"} "$scenario"; then pass=$((pass + 1)); else [ $? -eq 1 ] || exit 2; fi
+    if "$0" ${ref:+--ref "$ref"} ${skill_only:+--skill-only} "$scenario"; then pass=$((pass + 1)); else [ $? -eq 1 ] || exit 2; fi
   done
-  echo "$pass/$runs PASS  $scenario${ref:+ @ $ref}"
+  echo "$pass/$runs PASS  $scenario${ref:+ @ $ref}${skill_only:+ (skill only)}"
   [ $((pass * 2)) -gt "$runs" ]; exit
 fi
 
@@ -80,7 +83,13 @@ trap 'rm -rf "$sandbox"' EXIT
 {
   echo "You are a coding agent. The owner has loaded the skill below for you; follow it."
   echo
-  while IFS= read -r f; do echo "=== $f ==="; show "$f"; echo; done <<<"$files"
+  if [ -n "$skill_only" ]; then
+    echo "=== $dir/SKILL.md ==="; show "$dir/SKILL.md"; echo
+    others="$(grep -vx "$dir/SKILL.md" <<<"$files" || true)"
+    if [ -n "$others" ]; then echo "(Also in the skill folder, not opened: $(tr '\n' ' ' <<<"$others"))"; echo; fi
+  else
+    while IFS= read -r f; do echo "=== $f ==="; show "$f"; echo; done <<<"$files"
+  fi
   echo "=== Task from the owner ==="
   echo "$task"
   echo
@@ -115,7 +124,7 @@ cat "$out/grade.md"; echo
 echo "transcripts: $out"
 verdict="$(grep -v '^[[:space:]]*$' "$out/grade.md" | tail -1 | tr -d '\r`*' | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')" # the final line only
 case "$verdict" in
-  "VERDICT: PASS") echo "PASS  $scenario${ref:+ @ $ref}" ;;
-  "VERDICT: FAIL") echo "FAIL  $scenario${ref:+ @ $ref}"; exit 1 ;;
+  "VERDICT: PASS") echo "PASS  $scenario${ref:+ @ $ref}${skill_only:+ (skill only)}" ;;
+  "VERDICT: FAIL") echo "FAIL  $scenario${ref:+ @ $ref}${skill_only:+ (skill only)}"; exit 1 ;;
   *) echo "FAIL  $scenario: the judge's last line is not a verdict" >&2; exit 1 ;;
 esac

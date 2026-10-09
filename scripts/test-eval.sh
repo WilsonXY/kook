@@ -68,6 +68,15 @@ check "transcripts are saved"                 test -n "$(find "$tmp/out" -name '
 check "judge without a verdict line fails"    fails env KOOK_EVAL_JUDGE=true "$repo/scripts/eval.sh" "$repo/evals/demo/banana.md"
 check "unknown skill is an error"             fails run "$repo/evals/demo/missing.md"
 check "no arguments is an error"              fails "$repo/scripts/eval.sh"
+# --skill-only: the worst case where the agent never opens reference files
+run --skill-only "$repo/evals/demo/banana.md" || true
+check "--skill-only keeps SKILL.md"            grep -q 'NOW-SAY-APPLE' "$tmp/stub/prompt-0.txt"
+check "--skill-only leaves out references"     fails grep -q 'REFERENCE-TEXT' "$tmp/stub/prompt-0.txt"
+check "--skill-only names the left-out files"  grep -q 'references/extra.md' "$tmp/stub/prompt-0.txt"
+run --skill-only --runs 3 --ref HEAD "$repo/evals/demo/banana.md" && r=0 || r=$?
+check "--skill-only works with --runs and --ref" test "$r" -eq 0
+check "  and every repeated run left references out" fails grep -l 'REFERENCE-TEXT' "$tmp"/stub/prompt-*.txt
+
 # Repeated runs: a pass rate, passing only on a majority
 run --runs 3 --ref HEAD "$repo/evals/demo/banana.md" && r=0 || r=$?
 check "--runs 3 on a passing skill exits 0"    test "$r" -eq 0
