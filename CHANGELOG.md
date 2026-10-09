@@ -2,6 +2,7 @@
 
 One line per merged PR, newest first: what changed for agents or the owner, and why. Decisions behind a change are in `decisions/`.
 
+- **#18** CI pins shellcheck v0.11.0 by checksum, the same binary as local runs, so lint results match (inbox #16).
 - **#17** `html-communicate`: lead with the recommendation and what stays unchanged, show one before -> action -> result example, omit unrequested speculative alternatives, and give a reading order when delivering several pages (inbox #12, #13).
 - **#15** Behaviour evals: `scripts/eval.sh` grades a skill on a scenario with two fresh agents (task without criteria, then a judge). Six scenarios in `evals/`, from inbox #12–#14 and two decisions; the doctor checks their format.
 - **#11** Re-landed #10 on `main` (it had merged into #9's branch).

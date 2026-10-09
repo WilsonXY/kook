@@ -27,8 +27,15 @@ jobs:
         run: scripts/test-t3-thread.sh
       - name: Eval runner tests (stub agents, no model calls)
         run: scripts/test-eval.sh
-      - name: Shellcheck
-        run: shellcheck scripts/*.sh
+      - name: Shellcheck (pinned; same binary as local runs, see AGENTS.md)
+        env:
+          SC_VERSION: v0.11.0
+          SC_SHA256: 8c3be12b05d5c177a04c29e3c78ce89ac86f1595681cab149b65b97c4e227198
+        run: |
+          curl -fsSL -o sc.tar.xz "https://github.com/koalaman/shellcheck/releases/download/$SC_VERSION/shellcheck-$SC_VERSION.linux.x86_64.tar.xz"
+          echo "$SC_SHA256  sc.tar.xz" | sha256sum -c -   # the checksum pins the exact binary
+          tar -xJf sc.tar.xz
+          "./shellcheck-$SC_VERSION/shellcheck" scripts/*.sh
       - name: Changelog line added
         if: github.event_name == 'pull_request'
         run: |
