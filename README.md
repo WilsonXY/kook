@@ -8,6 +8,7 @@ The owner's skills for coding agents and writing.
 | `writing/` | Report, logbook and humanizer skills for the owner's writing. |
 | `vendor/` | Third-party skills kept unmodified. |
 | `profile.md` | The owner's personal setup, loaded by every agent session. |
+| `profile-claude.md` | Setup for Claude Code only (linked into `~/.claude/rules/`), such as when to use subagents. |
 
 Install once with `scripts/install-skills.sh`; merged PRs then go live within 5 minutes. How changes are judged: `SCOPE.md`. Why things are the way they are: `decisions/`. What came from where: `SOURCES.md`.
 
