@@ -12,6 +12,7 @@ What Kook took from other skillsets, so upstream changes can be compared later. 
 | `dev-skills/requesting-code-review` | obra/superpowers `skills/requesting-code-review` | `8ca22dba9a94` | MIT | Rewritten: fresh-context reviewer, static scan, routing via profile |
 | `dev-skills/github` | [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) `skills/software-development/github` | `688f5d5b28c5` (2026-10-02) | MIT | Trimmed to PR, CI and commit guides; proof attachment |
 | `vendor/ponytail` | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | `e5ee596c8637` (2026-10-02) | MIT | None |
+| `vendor/show-me` | [humanlayer/skills](https://github.com/humanlayer/skills) `plugins/show-me/skills/show-me` | `653b6411c1f7` (2026-10-08) | MIT | None; upstream `LICENSE` copied alongside |
 
 The superpowers pin is the upstream head when the copy was made (2026-10-02); the exact source commit wasn't recorded.
 

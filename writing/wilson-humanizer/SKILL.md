@@ -27,7 +27,7 @@ Always write from the perspective of an articulate, capable university student (
 | **1. Abstract Pitch-Deck Jargon** | *"bridging the gap,"* *"centralized mobile application dedicated to,"* *"lowering social friction,"* *"navigating this fragmented landscape"* | Sounds like a generic venture capital slide rather than a real problem. | Use plain, direct wording: *"puts this information in one place,"* *"makes research easier."* |
 | **2. Symmetrical Contrasts (X vs. Y)** | *"commercialized tourist bubbles"* vs. *"authentic community spaces,"* *"disconnected outsiders"* vs. *"active participants"* | Formulaic opposites sound algorithmically constructed to force persuasion. | Break the binary. Describe what happens naturally without balancing two conceptual poles. |
 | **3. Rule-of-Three Stacking** | Repeating three-item lists in every paragraph (*"tourists, students, and expats,"* *"blogs, forums, and groups,"* *"eat, meet, and explore"*) | Repetitive rhythm creates an obvious synthetic cadence. | Vary list lengths. Use one strong example, a couple of natural ones, or describe the scene without a list. |
-| **4. Sweeping Claims as Facts** | *"Most visitors end up stranded in malls,"* *"Newcomers consistently face a steep barrier"* | Sweeping generalizations attract criticism in academic/UX reviews: *"How do you prove 'most'?"* | Soften into defensible observations: *"Many end up spending much of their time around...",* *"Finding local activities is often surprisingly difficult."* |
+| **4. Sweeping Claims as Facts** | *"Most visitors end up stranded in malls,"* *"Newcomers consistently face a steep barrier"* | Sweeping generalizations attract criticism in academic/UX reviews: *"How do you prove 'most'?"* | Keep the claim if a source or the user's own research supports it, and cite it. If not, flag it and ask for one, or narrow it to what the writer actually saw: *"In our interviews, most students..."* |
 | **5. Adjective Stacking & Filler** | *"multicultural warmth and rich heritage,"* *"intuitive community touchpoint,"* *"clear, approachable experiences"* | Adds emotional padding without adding concrete information. | Cut empty adjectives. Let real nouns and actions carry the weight. |
 | **6. Formulaic Transitions** | *"Whether they are X, Y, or Z...",* *"Instead of X, Y...",* *"The overall aim is to..."* | Classic generative AI template crutches for starting or ending thoughts. | State points directly: *"Some are here for vacation, while others...",* *"The idea is to..."* |
 
@@ -36,7 +36,7 @@ Always write from the perspective of an articulate, capable university student (
 ## 3. The 4 Humanizing Levers
 
 ### Lever 1: Concrete Grounding Over Conceptual Abstraction
-Replace vague categories with tangible, recognizable real-world references:
+Replace vague categories with tangible, recognizable real-world references, when the draft, the user's notes or a source names them:
 - *Instead of:* "popular shopping centers and monuments"
 - *Write:* "shopping malls like Pavilion, or landmarks such as the Petronas Towers"
 - *Instead of:* "scattered across fragmented digital channels and online spaces"
@@ -68,11 +68,11 @@ When editing or drafting text with this skill:
 1. **Step 1: Scan and Purge Pitch-Deck Vocabulary**
    - Strike out: *bridge the gap, touchpoint, friction, fragmented landscape, holistic, delve, robust, foster, multifaceted, seamless.*
 2. **Step 2: Inject Grounded Realism**
-   - Replace every generic placeholder with a specific local place, tool, app name, or scenario.
+   - Replace generic placeholders with a specific local place, tool, app name, or scenario taken from the draft, the user's notes or a cited source. Never invent one; if none is given, write the sentence plainly or ask.
 3. **Step 3: Break the Rhythms**
    - Count the three-part lists and cut half of them.
    - Dismantle balanced X-vs-Y contrasts.
-4. **Step 4: Soften and Defend Claims**
-   - Replace absolute quantifiers (*most, every, completely*) with grounded qualifiers (*many, often, tend to*).
+4. **Step 4: Check and Support Claims**
+   - Keep a quantifier the draft supports (a survey result, a citation). Flag one it doesn't (*most, every, completely*) and ask for the source; softening it to *many* or *often* still leaves a claim with no support.
 5. **Step 5: The Read-Aloud Test**
    - Read the paragraph aloud. If a sentence feels like a brochure or a pitch deck slide, rewrite it until it sounds like an honest, smart student explaining it across a desk.
