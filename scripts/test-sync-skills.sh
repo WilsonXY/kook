@@ -108,6 +108,23 @@ expect_ok   "  to the live copy"                    links_to "$HOME/.codex/AGENT
 rm "$HOME/.codex"; mv "$tmp/codex-real" "$HOME/.codex"
 rm -r "$tmp/dev/private"
 
+rules="$HOME/.claude/rules/kook-profile.md"
+printf '# claude only\n' >"$tmp/dev/profile-claude.md"; push "add claude profile"
+expect_ok   "sync with a claude profile"            sync
+expect_ok   "claude rules read it"                  links_to "$rules" "$live/profile-claude.md"
+expect_ok   "codex still reads only profile.md"     links_to "$HOME/.codex/AGENTS.md" "$live/profile.md"
+expect_ok   "check passes with the rules link"      sync --check
+rm "$rules"
+expect_fail "check reports a missing rules link"    sync --check
+ln -s "$tmp/dev/profile-claude.md" "$rules"
+expect_fail "check reports a rules link into another checkout" sync --check
+expect_ok   "sync repoints it"                      sync
+expect_ok   "  to the live copy"                    links_to "$rules" "$live/profile-claude.md"
+rm "$rules"; echo mine >"$rules"
+expect_ok   "own rules file: sync still succeeds"   sync
+expect_ok   "  and leaves it alone"                 grep -qx mine "$rules"
+rm "$rules"
+
 add_skill beta; push "add beta"
 expect_fail "check reports live copy behind origin" sync --check
 expect_ok   "sync fast-forwards"                    sync

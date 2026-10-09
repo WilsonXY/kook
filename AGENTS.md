@@ -8,4 +8,5 @@ Skills for coding agents. Portable dev skills live in `dev-skills/` (rules in `d
 - Verify: `scripts/doctor.py`, `python3 -m unittest scripts/test_doctor.py`, `scripts/test-sync-skills.sh`, `scripts/test-t3-thread.sh`, `scripts/test-eval.sh` and `shellcheck scripts/*.sh`. CI runs them all. CI pins shellcheck v0.11.0 (checksum in `.github/workflows/check.yml`); use the same version locally, or local runs can pass what CI fails.
 - Changing what a skill makes an agent do: run its scenarios in `evals/` before and after (`scripts/eval.sh --ref origin/main <scenario>`, then without `--ref`), add a scenario from the inbox issue that motivated the change, and put both results in the PR. See `evals/README.md`.
 - `profile.md` is the owner's personal setup, loaded by every agent session as global instructions. Keep it short; skills point to it instead of naming models, hosts or machines.
+- `profile-claude.md` is the same for Claude Code only; Codex never reads it. Put a rule there only when it must not reach other harnesses.
 - After a PR merges, confirm it is live: `~/.local/share/kook/scripts/sync-skills.sh --check` (or run it without `--check` to sync now).

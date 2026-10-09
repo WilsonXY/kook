@@ -1,6 +1,6 @@
 # Owner profile
 
-Personal setup for every agent session on this machine. Skills in `dev-skills/` stay portable and point here for anything specific to this owner, these tools or this machine. `scripts/sync-skills.sh` links this file as `~/.claude/CLAUDE.md` and `~/.codex/AGENTS.md`.
+Personal setup for every agent session on this machine. Skills in `dev-skills/` stay portable and point here for anything specific to this owner, these tools or this machine. `scripts/sync-skills.sh` links this file as `~/.claude/CLAUDE.md` and `~/.codex/AGENTS.md`. Claude Code also loads `profile-claude.md`, which Codex never sees.
 
 ## Reviewer routing
 Used by `requesting-code-review` when the task names no reviewer. Unless the exception below applies, try in order:
