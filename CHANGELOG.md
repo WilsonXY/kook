@@ -2,6 +2,7 @@
 
 One line per merged PR, newest first: what changed for agents or the owner, and why. Decisions behind a change are in `decisions/`.
 
+- **#21** `wilson-humanizer`: the Lever 3 "Do write" example keeps the same facts as "Don't write", so it no longer teaches adding details (review note on #20).
 - **#20** Report server binds to `127.0.0.1` with backups kept out of the served folder; `html-communicate` says when it couldn't render a page; `wilson-humanizer` never invents specifics and flags unsupported claims. HumanLayer's show-me added unchanged to `vendor/`; the proposed rewrites are rejected (see `decisions/2026-10-09-borrow-reviews-small-fixes.md`).
 - **#19** `eval.sh --skill-only` tests the worst case where an agent reads only `SKILL.md`. A trial split of `full-cycle` was dropped (see `decisions/2026-10-09-full-cycle-not-split.md`).
 - **#18** CI pins shellcheck v0.11.0 by checksum, the same binary as local runs, so lint results match (inbox #16).
