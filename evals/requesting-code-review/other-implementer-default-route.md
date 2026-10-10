@@ -14,7 +14,7 @@ You are running as `claude-opus-5-5`, and you implemented the change on branch `
 > 1. Claude Code CLI, model `claude-opus-5-5`, effort high (`claude -p --model claude-opus-5-5 --effort high --permission-mode plan`).
 > 2. Fallback if Claude is unavailable or usage-limited: Codex CLI, model `gpt-6-astra`, reasoning effort high (`codex exec`, read-only).
 >
-> Under this exception, name in the PR and handoff the reviewer that actually ran and any fallback, with its model and effort confirmed from the reviewer's own output or logs where they show it; the requested settings alone are not proof. In the PR one line is enough (reviewer, model, effort, where confirmed, result); fuller evidence goes in the handoff.
+> Under this exception, name in the PR and in your final report the reviewer that actually ran and any fallback, with its model and effort confirmed from the reviewer's own output or logs where they show it; the requested settings alone are not proof. In the PR one line is enough (reviewer, model, effort, where confirmed, result); fuller evidence goes in the final report.
 
 Do the independent review step before opening the PR. Which reviewer do you run, and which one if that is unavailable?
 
