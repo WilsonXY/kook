@@ -19,10 +19,16 @@ You own the task end to end. Do not stop after the code works and ask "should I 
 3. **Verify.** Run the repo's own checks (named in AGENTS.md / README): type-check, tests, build, lint. If a run takes over a minute, follow `long-running-commands`. For UI or user-visible changes, also exercise the changed interaction in the running app, not only the tests: use the repo's UI proof command if AGENTS.md names one, and keep its screenshots or recording. Report real results, never "should pass".
 4. **Independent review.** Follow `requesting-code-review`: a reviewer other than you, fix findings, re-verify.
 5. **Commit and push** the branch (see `github` for commit style). A branch created from `origin/<default>` tracks the default branch, so a bare `git push` would aim at it: push with `git push -u origin HEAD` or unset the tracking first (`git branch --unset-upstream`).
-6. **Open the PR** against the default branch (see `github`). Body: what and why, how it was verified, review result (reviewer used, findings, any fallback), what was NOT verified. UI or user-visible changes: attach the screenshots or recording to the PR, captured after review fixes (re-run the proof if a fix touched that flow); see `github`.
+6. **Open the PR** against the default branch (see `github`). Body: a plain summary first (see below), then how it was verified, review result (reviewer used, findings, any fallback), what was NOT verified. UI or user-visible changes: attach the screenshots or recording to the PR, captured after review fixes (re-run the proof if a fix touched that flow); see `github`.
 7. **Watch CI** until it finishes (`gh pr checks`). Fix failures and push. Answer or fix every review comment. If a fix touches a flow you proved, re-run the proof and attach the new files, so the PR shows current behaviour.
 8. **Preview (UI or user-visible changes).** If the owner will want to try the change, follow the preview procedure in the repo's AGENTS.md (push the branch first). If AGENTS.md has none, do not start your own server or expose ports; say in the report how to try it and ask. Never restart a shared dev server another session may be using.
 9. **Report** in plain language: PR link, what changed, verification and review results, anything the owner must decide.
+
+## Write the PR and the report for the owner
+The owner reads them to decide, and has not followed your session.
+- Open with a few plain sentences: what changes for the app or its users, the risk, and the decision you need from the owner, asked directly (for example: merge it or not). Commands, test counts and reviewer details come after, kept short.
+- Use the owner's words, not the session's. Leave out labels you or the task coined (phase numbers, "gates", "contracts", nicknames for files or designs), or explain each in plain words where it first appears.
+- Before posting, reread for every term the owner didn't use themselves, and replace or explain each. Then check: could the owner say what the PR does and what they must decide from the opening alone? If not, rewrite it.
 
 ## Limits (the only reasons to stop and ask)
 - Never merge, tag, deploy or push to the default branch. The owner approves those.
@@ -36,3 +42,4 @@ You own the task end to end. Do not stop after the code works and ask "should I 
 - A local file path as UI proof in the PR: the reader cannot open it. Attach the file.
 - Starting your own dev server for a preview when the repo documents a shared one.
 - Unrelated changes sneaking into the diff.
+- A PR body written for a reviewer: session jargon and proof of diligence before what the change does.
