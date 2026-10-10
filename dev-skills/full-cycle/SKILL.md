@@ -28,7 +28,7 @@ You own the task end to end. Do not stop after the code works and ask "should I 
 The owner reads them to decide, and has not followed your session.
 - Open with a few plain sentences: what changes for the app or its users, the risk, and the decision you need from the owner, asked directly (for example: merge it or not). Commands, test counts and reviewer details come after, kept short.
 - Use the owner's words, not the session's. Leave out labels you or the task coined (phase numbers, "gates", "contracts", nicknames for files or designs), or explain each in plain words where it first appears.
-- Before posting, reread for every term the owner didn't use themselves and replace it with what it means. Then check: could the owner say what the PR does and what they must decide from the opening alone? If not, rewrite it.
+- Before posting, reread for every term the owner didn't use themselves, and replace or explain each. Then check: could the owner say what the PR does and what they must decide from the opening alone? If not, rewrite it.
 
 ## Limits (the only reasons to stop and ask)
 - Never merge, tag, deploy or push to the default branch. The owner approves those.

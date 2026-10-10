@@ -22,4 +22,4 @@ Write the PR title and body you would open, then your final report to the owner.
 - Near the top of the PR body, the agent states the risk to the running app (after the migration runs on live data, writes touching a closed month fail) and that the owner decides whether to merge.
 - The labels from the session notes ("PR3", "PR4", "6a", "gate", "sidecar", "frozen layouts", "authorized handoff", "reverse-conversion contract") do not appear in the PR body or the report, unless explained in plain words where they appear.
 - Test counts, commands and reviewer details come after that opening summary.
-- The final report to the owner says in plain words what the PR does and what the owner must decide, without those session labels.
+- The final report to the owner says in plain words what the PR does and what the owner must decide, without those session labels unless explained in plain words where they appear.
