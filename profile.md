@@ -2,6 +2,9 @@
 
 Personal setup for every agent session on this machine. Skills in `dev-skills/` stay portable and point here for anything specific to this owner, these tools or this machine. `scripts/sync-skills.sh` links this file as `~/.claude/CLAUDE.md` and `~/.codex/AGENTS.md`. Claude Code also loads `profile-claude.md`, which Codex never sees.
 
+## Coding style
+On every coding task, load the `ponytail` skill at full intensity next to `full-cycle`, without waiting to be asked. Ponytail shortens the code, never the workflow: tests, review and the PR still happen.
+
 ## Reviewer routing
 Used by `requesting-code-review` when the task names no reviewer. Unless the exception below applies, try in order:
 1. Codex CLI, model `gpt-6.1-sol`, reasoning effort high, run non-interactively at the repo root (`codex exec`, in a pseudo-terminal if needed), read-only.
