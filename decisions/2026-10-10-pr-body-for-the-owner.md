@@ -4,7 +4,7 @@
 
 **Decision.** `full-cycle` gets a short section: the PR body and the report open with a few plain sentences (what changes for the app or its users, the risk, what the owner must decide); details follow; labels coined in the session are left out or explained; a check before posting. `profile.md` keeps the reviewer-proof rule but limits it to one line in the PR, with fuller evidence in the final report, because that rule produced a paragraph of model-confirmation proof at the top of the PR.
 
-**Why here.** Who reads a PR, and in what order, is a judgement that recurs in every repo, so it goes in a portable skill, not in a project's `AGENTS.md`. It goes in `full-cycle` because that skill owns the PR body and the report; `github` only routes to PR mechanics.
+**Why here.** Who reads a PR, and in what order, is a judgement that recurs in every repo, so it goes in a portable skill, not in a project's `AGENTS.md`. It goes in `full-cycle` because that skill owns the PR body and the report; `github` only routes to PR mechanics. (Superseded: the rules moved to `dev-skills/pr-body` in `2026-10-14-pr-body-skill.md`.)
 
 **Rejected.**
 - A Codex-only rule: there's no Codex-only profile, and the rule costs Claude nothing.

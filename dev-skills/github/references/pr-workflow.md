@@ -83,14 +83,7 @@ git push -u origin HEAD
 ```bash
 gh pr create \
   --title "feat: add JWT-based user authentication" \
-  --body "## Summary
-- Adds login and register API endpoints
-- JWT token generation and validation
-
-## Test Plan
-- [ ] Unit tests pass
-
-Closes #42"
+  --body-file pr-body.md   # what the body says: the `pr-body` skill
 ```
 
 Options: `--draft`, `--reviewer user1,user2`, `--label "enhancement"`, `--base develop`

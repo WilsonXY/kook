@@ -37,7 +37,6 @@ Run the project's own checks: tests, type-check, lint (the repo's AGENTS.md or R
 The reviewer must be a DIFFERENT context from you: another agent/model, or at minimum a fresh session that has not seen your reasoning. If the task or the person who dispatched you names a reviewer and settings, use exactly that. Otherwise:
 1. Use the reviewer routing in the owner's global instructions (a "Reviewer routing" section), trying its entries in order, read-only.
 2. If there is none, or none of its entries works, use any other agent available on the machine, read-only.
-State which reviewer ran, and any fallback and why, in the PR.
 
 Give the reviewer only: the diff, the task's scope, the Step 2 findings, and these rules:
 - Review only; do not edit files.
@@ -56,7 +55,7 @@ Fix every blocking finding, and either fix or justify each suggestion in writing
 Fixes stay inside the task's scope. If a finding needs a bigger change, report it rather than expanding the diff.
 
 ## Step 7 - Record it
-In the PR description include: reviewer used (and any fallback and why), findings with severity, how each was handled, and what was not verified.
+Put the result in the PR's Review section (follow `pr-body`). With no PR, give the same in your report.
 
 ## Common pitfalls
 - Reviewing your own diff and calling it independent
