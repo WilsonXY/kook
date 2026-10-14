@@ -9,7 +9,8 @@ description: Use when the user says "html" or "report in html".
 
 ## Write for a reader who knows nothing about the project
 - **Lead with the point.** From the first screen alone, the reader should be able to say what the page tells them. For a recommendation, that means the whole recommendation in one plain sentence (what to do, its scope, its limits), apart from the findings, with what stays unchanged next to it.
-- **Show more than you tell.** Numbers as stat tiles or small charts, steps as numbered cards, comparisons as tables, status as coloured badges. When recommending a change, show it working once: before -> action -> result, with the task's real facts.
+- **Show more than you tell.** Numbers as stat tiles or small charts, steps as numbered cards, comparisons as tables, status as coloured badges.
+- **Show it working once.** When recommending a change, walk through one concrete case with the task's real facts: before -> action -> result, as step cards when there are several steps. A one-line summary or a restated headline number is not an example.
 - **Keep text light.** Short plain paragraphs; depth goes in collapsed `<details>`. Define each term the reader didn't use, where it first appears.
 - **Shape the page to its content.** For findings or a recommendation, a good default is: answer -> what was done -> key numbers -> worked example -> findings, worst consequence first -> what is not known -> what you need from the reader. An explainer, comparison or status page wants its own shape. Drop sections with nothing to say.
 - **One path when you recommend.** Leave out speculative alternatives and "possible later" ideas, and don't recommend beyond the evidence. When the reader asked for options or to explore, lay the options out side by side instead. Evidence-backed limits and caveats stay either way.
