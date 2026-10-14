@@ -9,6 +9,7 @@ Harness-agnostic software-development skills for coding agents (any harness that
 | long-running-commands | Don't end your turn while a test/build runs; poll until the result is in |
 | requesting-code-review | Independent review of your diff before opening the PR |
 | github | gh CLI: branches, commits, PRs, CI checks |
+| pr-body | What a PR body and the final report say, for the owner who decides |
 | full-cycle | Own a task from first edit to open PR with green CI; routes to the skills above |
 | html-communicate | Present HTML reports as visual, easy-to-scan pages with working links |
 | retro | Look back at a session and file each lasting lesson for triage (owner-invoked) |

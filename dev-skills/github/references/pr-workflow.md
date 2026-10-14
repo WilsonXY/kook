@@ -83,14 +83,7 @@ git push -u origin HEAD
 ```bash
 gh pr create \
   --title "feat: add JWT-based user authentication" \
-  --body "## Summary
-- Adds login and register API endpoints
-- JWT token generation and validation
-
-## Test Plan
-- [ ] Unit tests pass
-
-Closes #42"
+  --body-file pr-body.md   # what the body says: the `pr-body` skill
 ```
 
 Options: `--draft`, `--reviewer user1,user2`, `--label "enhancement"`, `--base develop`
@@ -100,16 +93,14 @@ Options: `--draft`, `--reviewer user1,user2`, `--label "enhancement"`, `--base d
 ```bash
 BRANCH=$(git branch --show-current)
 
+# pr-body.md: what the body says is the `pr-body` skill
+jq -n --arg head "$BRANCH" --rawfile body pr-body.md \
+  '{title: "feat: add JWT-based user authentication", body: $body, head: $head, base: "main"}' |
 curl -s -X POST \
   -H "Authorization: token $GITHUB_TOKEN" \
   -H "Accept: application/vnd.github.v3+json" \
   https://api.github.com/repos/$OWNER/$REPO/pulls \
-  -d "{
-    \"title\": \"feat: add JWT-based user authentication\",
-    \"body\": \"## Summary\nAdds login and register API endpoints.\n\nCloses #42\",
-    \"head\": \"$BRANCH\",
-    \"base\": \"main\"
-  }"
+  -d @-
 ```
 
 The response JSON includes the PR `number` — save it for later commands.
