@@ -5,7 +5,7 @@ description: Use when the user says "html" or "report in html".
 
 # html-communicate
 
-"html" means the user wants a page they open by link and take in at a glance, not a markdown file or an attachment. Dense text tires their eyes, and pages that assume project knowledge lose them. Everything below serves that reader; how the page looks is your call.
+"html" means the user wants a page they open by link and take in at a glance, not a markdown file or an attachment. Dense text tires their eyes, and pages that assume project knowledge lose them. Everything below serves that reader; the layout is your call.
 
 ## Write for a reader who knows nothing about the project
 - **Lead with the point.** From the first screen alone, the reader should be able to say what the page tells them. For a recommendation, that means the whole recommendation in one plain sentence (what to do, its scope, its limits), apart from the findings, with what stays unchanged next to it.
@@ -14,7 +14,7 @@ description: Use when the user says "html" or "report in html".
 - **Keep text light.** Short plain paragraphs; depth goes in collapsed `<details>`. Define each term the reader didn't use, where it first appears.
 - **Shape the page to its content.** For findings or a recommendation, a good default is: answer -> what was done -> key numbers -> worked example -> findings, worst consequence first -> what is not known -> what you need from the reader. An explainer, comparison or status page wants its own shape. Drop sections with nothing to say.
 - **One path when you recommend.** Leave out speculative alternatives and "possible later" ideas, and don't recommend beyond the evidence. When the reader asked for options or to explore, lay the options out side by side instead. Evidence-backed limits and caveats stay either way.
-- Use corrected numbers from reviews and say what was corrected. Never paste raw agent output or truncate text mid-word. Link raw .md/JSON as "full detail" at the bottom.
+- Use corrected numbers from reviews and say on the page what was corrected, without editing the source docs. Never paste raw agent output or truncate text mid-word. Link raw .md/JSON as "full detail" at the bottom.
 - No secrets, emails or token IDs on the page.
 
 ## Build

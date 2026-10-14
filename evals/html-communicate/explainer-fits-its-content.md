@@ -10,4 +10,4 @@ Describe the page you would build for them: write out the full text of the first
 ## Pass if
 - The page is organised around the path a change takes, from branch to production (for example step cards or a flow), not as findings or a recommendation.
 - The page itself has no section asking for a decision or input ("What I need from you" or similar) and no recommendation banner: its reader is the teammate, who asked for an explanation. Questions for the owner may go in the delivery message.
-- Any stat tile or headline number shows a figure given in the facts (only the CI time is); no tiles padded with derived counts such as the number of steps or clicks.
+- Every number on the page is given in the facts or counted directly from them; no invented times, percentages or metrics.
