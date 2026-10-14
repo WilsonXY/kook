@@ -11,6 +11,6 @@
 **Why.** `SCOPE.md` asks for an observed failure before a behaviour change, and none of these has one. The owner chose to land them anyway: they remove a privacy leak and rules that invite false statements, and each failure would be costly before it was observed. This is not a general exemption; the redesigns below still wait for evidence. The redesigns are "it would be better if".
 
 **Rejected.**
-- Rewriting `html-communicate` to loosen the no-text-wall rules, stat tiles and section order. The one real failure with this skill (#12) was a report that was too vague, not too strict. Reopen with a failure where a rule produced a worse page.
+- Rewriting `html-communicate` to loosen the no-text-wall rules, stat tiles and section order. The one real failure with this skill (#12) was a report that was too vague, not too strict. Reopen with a failure where a rule produced a worse page. (Superseded: reopened by `2026-10-14-html-communicate-reader-not-template.md`.)
 - Humanizer modes. Asking for "light edit only" or "just audit" already does it.
 - A Kook `show-me` skill with hooks in `html-communicate`, the PR guide and `full-cycle`. It composes from asking for a diagram, and it repeats the shape of the rejected p3 plan (`2026-10-06-p3-adopt-selectively.md`). Reopen if threads show repeated "I don't understand" outside HTML reports.
