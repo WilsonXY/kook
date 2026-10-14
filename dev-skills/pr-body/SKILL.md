@@ -11,7 +11,7 @@ metadata:
 
 # PR body: written for the owner who decides
 
-The owner reads the PR body and your final report to decide, and has not followed your session. Every rule about what a PR body says lives here.
+The owner reads the PR body and your final report to decide, and has not followed your session. The other skills keep no PR-body rules of their own; they all live here. The owner's global instructions may add their own (such as how to prove which reviewer ran), and those apply too.
 
 ## Template
 
@@ -30,7 +30,7 @@ The owner reads the PR body and your final report to decide, and has not followe
 <Checks run and their results, kept short.>
 
 ## Review
-<Reviewer used (and any fallback and why), findings with severity, how each was handled.>
+<Reviewer used (and any fallback and why), findings with severity, how each was handled, plus any proof the owner's global instructions ask for.>
 
 ## Not verified
 <What you did not check, and why.>
