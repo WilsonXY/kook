@@ -8,6 +8,8 @@
 
 **Evidence.** Claude Opus 5.5 as agent and judge (Codex was usage-limited), 3 runs each, old skill then new: `explainer-fits-its-content` 0/3 -> 3/3; `lead-with-recommendation` 3/3 -> 6/6; `no-browser-says-so` 3/3 -> 3/3; `several-pages-reading-order` 3/3 -> 3/3. The first rewrite folded "show it working once" into another bullet and slipped to 2/3 twice on `lead-with-recommendation`; as its own rule it passed 6/6. A line tying each visual to a fact from the task did not change the explainer's rate, so it was left out.
 
+**Length.** Dropping the 25-word cap left nothing deciding what goes in, and the owner found the new skill's pages too wordy next to a page made with `show-me`. The skill now borrows show-me's rule: pick the smallest view that makes the point, keep only what the reader needs, say each thing once, skip notes on your own process, and show code as its shape. On a code explainer (`scripts/eval.sh`), median words over 3 builds each: 1,489 without the rule, 1,313 with `show-me` loaded, 1,096 with the rule (the old skill's one build: 1,108). This is a rule about what goes in, not a length cap. With the rule, `explainer-fits-its-content` passed 5/6 (the failure: an invented "3-minute read" label) and the other three scenarios 3/3.
+
 **Rule of thumb for future edits.** Exact rules for fragile or safety steps; for the shape of output, describe the reader and the goal and give a default. Loosening a rule is fine when its scenarios still pass.
 
 **Rejected.** Loosening `wilson-humanizer` in the same change: the owner will test it first.
