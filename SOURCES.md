@@ -26,3 +26,4 @@ The superpowers pin is the upstream head when the copy was made (2026-10-02); th
 | Watch a skill fail before changing it; grade with a fresh agent | [obra/superpowers](https://github.com/obra/superpowers) `writing-skills`; compound-engineering `ce-skill-work/references/evaluate.md` | `evals/`, `scripts/eval.sh` |
 | Prove UI changes on the real surface | pstack / p3-stack | `full-cycle` step 3, `github` `pr-workflow.md` |
 | Pick the smallest view that makes the point; keep only what answers the question; show code as its shape | [humanlayer/skills](https://github.com/humanlayer/skills) `show-me` (also in `vendor/show-me`) | `html-communicate` "Show more than you tell", "Pick the smallest view" |
+| PR body with Merge danger (one-way or two-way door, blast radius) and before/after Evidence | [mattpocock/skills](https://github.com/mattpocock/skills) `skills/engineering/pr` at `49dd158d1076` (MIT) | `dev-skills/pr-body` |
