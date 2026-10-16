@@ -60,7 +60,7 @@ A blocking finding you judge "doesn't hold" goes back to the reviewer with your 
 
 When a finding lands on code an earlier review fix added, ask whether that fix was the right approach before adding another layer on top. In skill or prompt text, restate the rule instead of adding one more case.
 
-Re-run Step 3. Maximum 2 fix-and-re-review rounds; if still failing, stop and report what remains instead of pushing.
+Re-run Step 3. Maximum 3 fix-and-re-review rounds; if still failing, stop and report what remains instead of pushing.
 
 ## Step 7 - Record it
 Put the result in the PR's Review section (follow `pr-body`): every finding with its verdict and why, none left out. With no PR, give the same in your report.
