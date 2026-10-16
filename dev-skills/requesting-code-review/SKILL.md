@@ -49,17 +49,27 @@ Read the reviewer's actual output. A zero exit code is not a pass. Unparseable o
 
 **If the reviewer is unavailable** (usage limit, not installed): try the next alternative. If none exists, say so explicitly in your report and PR; never present your own self-review as an independent one.
 
-## Step 6 - Fix and re-verify
-Fix every blocking finding, and either fix or justify each suggestion in writing. Re-run Step 3. Maximum 2 fix-and-re-review rounds; if still failing, stop and report what remains instead of pushing.
+## Step 6 - Judge each finding, then fix
+The reviewer saw only the diff; you can see the callers, the task and the history. Its severity is a claim, not a verdict. Check each finding against the code first (trace the path, or reproduce it), then give it one verdict:
+- **Fix**: a real problem. This is the default: most findings are real, and "it's minor" is no reason to skip one. A bug gets a failing test first.
+- **Doesn't hold**: the path can't happen. Name the caller, type or test that rules it out. No code change, even if the fix would be trivial.
+- **Decline**: only a different preference, with no concrete problem. Say why. If the problem is real but the suggested fix makes the code worse (an abstraction with one caller, a new dependency, dead defensive code), fix it a simpler way or report it; declining the remedy never disposes of the problem.
+- **Report**: it needs a decision, conflicts with the task, or changes scope. Report it with options and a recommendation instead of expanding the diff.
 
-Fixes stay inside the task's scope. If a finding needs a bigger change, report it rather than expanding the diff.
+A blocking finding you judge "doesn't hold" goes back to the reviewer with your evidence in the re-review, not into the code.
+
+When a finding lands on code an earlier review fix added, ask whether that fix was the right approach before adding another layer on top. In skill or prompt text, restate the rule instead of adding one more case.
+
+Re-run Step 3. Maximum 3 fix-and-re-review rounds; if still failing, stop and report what remains instead of pushing.
 
 ## Step 7 - Record it
-Put the result in the PR's Review section (follow `pr-body`). With no PR, give the same in your report.
+Put the result in the PR's Review section (follow `pr-body`): every finding with its verdict and why, none left out. With no PR, give the same in your report.
 
 ## Common pitfalls
 - Reviewing your own diff and calling it independent
-- Passing the reviewer your reasoning (it then agrees with you)
+- Passing the reviewer your reasoning up front (it then agrees with you)
 - Treating a reviewer's silence or crash as approval
 - Fixing review findings by making unrelated changes
+- Fixing a finding you think isn't real because the fix is small
+- Answering each new edge case with more code, round after round
 - Skipping the baseline, then blaming yourself for old failures (or hiding new ones)
