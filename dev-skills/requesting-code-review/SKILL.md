@@ -53,7 +53,7 @@ Read the reviewer's actual output. A zero exit code is not a pass. Unparseable o
 The reviewer saw only the diff; you can see the callers, the task and the history. Its severity is a claim, not a verdict. Check each finding against the code first (trace the path, or reproduce it), then give it one verdict:
 - **Fix**: a real problem. This is the default: most findings are real, and "it's minor" is no reason to skip one. A bug gets a failing test first.
 - **Doesn't hold**: the path can't happen. Name the caller, type or test that rules it out. No code change, even if the fix would be trivial.
-- **Decline**: the fix makes the code worse (an abstraction with one caller, a new dependency, dead defensive code) or is only a different preference. Say why.
+- **Decline**: only a different preference, with no concrete problem. Say why. If the problem is real but the suggested fix makes the code worse (an abstraction with one caller, a new dependency, dead defensive code), fix it a simpler way or report it; declining the remedy never disposes of the problem.
 - **Report**: it needs a decision, conflicts with the task, or changes scope. Report it with options and a recommendation instead of expanding the diff.
 
 A blocking finding you judge "doesn't hold" goes back to the reviewer with your evidence in the re-review, not into the code.
