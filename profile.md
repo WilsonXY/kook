@@ -22,7 +22,7 @@ Inside T3 Code, run the same reviewer (model, effort) through `delegate_task` in
 - Model and effort proof is the child's own session log (`~/.codex/sessions/`, or `~/.claude/projects/<worktree>/`).
 
 ## T3 Code
-Inside T3 Code 0.1.0+, where T3's own instructions or tools cover the same job as a skill, follow T3. Its PR watch (`watch_pull_request`) and the wake-up when an async task finishes count as waiting for `long-running-commands` and `full-cycle`. For `html-communicate`, show the page with `html_render`, after checking it with `html_preview` at 390px and 728px, before any Tailscale link. Reviews use `delegate_task` with the checks in Reviewer routing.
+Inside T3 Code 0.1.0+, where T3's own instructions or tools cover the same job as a skill, follow T3. Its PR watch (`watch_pull_request`) and the wake-up when an async task finishes count as waiting for `long-running-commands` and `full-cycle`. For `html-communicate`, show the page with `html_render`, after checking it with `html_preview` at 390px and 728px, before any Tailscale link.
 
 ## Sharing reports and previews
 Private links go over Tailscale: if `tailscale status` works, run `tailscale serve --bg --https=<port> http://127.0.0.1:<port>` over a local `python3 -m http.server <port> --bind 127.0.0.1 --directory <folder>`. Without `--bind` it listens on every interface, so the LAN can read it too. The folder holds only pages meant to be read: everything in it can be browsed.
