@@ -6,12 +6,12 @@ Harness-agnostic software-development skills for coding agents (any harness that
 |---|---|
 | test-driven-development | RED-GREEN-REFACTOR, tests first |
 | systematic-debugging | Find the root cause before fixing |
-| long-running-commands | Don't end your turn while a test/build runs; poll until the result is in |
+| long-running-commands | Don't end your turn while a test/build runs: poll until the result is in, unless the harness can wake you |
 | requesting-code-review | Independent review of your diff before opening the PR |
 | github | gh CLI: branches, commits, PRs, CI checks |
 | pr-body | What a PR body and the final report say, for the owner who decides |
 | full-cycle | Own a task from first edit to open PR with green CI; routes to the skills above |
-| html-communicate | Present HTML reports as visual, easy-to-scan pages with working links |
+| html-communicate | Present HTML reports as visual, easy-to-scan pages, shown inline when the harness can, else by link |
 | retro | Look back at a session and file each lasting lesson for triage (owner-invoked) |
 
 Install once: run `scripts/install-skills.sh` from any kook checkout. It clones kook to `~/.local/share/kook`, the copy agents load skills from, and links every skill there, from `dev-skills/`, `writing/` and `vendor/` (`~/.claude/skills/*`, `~/.agents/skills/*`). A systemd user timer then runs `scripts/sync-skills.sh` in that copy every 5 minutes: it fast-forwards to `origin/main` and relinks, so a merged PR goes live on its own. Never work in `~/.local/share/kook`; sync refuses to touch it if it is dirty or off `main`. Check for drift with `~/.local/share/kook/scripts/sync-skills.sh --check`.
