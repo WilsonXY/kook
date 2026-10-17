@@ -23,8 +23,9 @@ description: Use when the user says "html" or "report in html".
 - Restyling a page: keep its content and numbers, and save the old version outside the served folder, because anything in it can be browsed.
 - Keep banners honest: update "RUNNING" notices when work finishes; link new pages from older ones.
 
-## Deliver by link, never attachment
-- Serve the folder privately and give the full link, using the route the owner's global instructions or the project document (for example a private HTTPS proxy over a local `python3 -m http.server`). One folder per port; never reuse a port.
-- Before reporting: `curl` every touched page for 200 (restart the server if it died), scan the pages for secrets and emails, and check each fact you were asked to include is there; say so if one is missing.
-- View the page at 390px and desktop. If you can't render it (no browser tool), say so in the report; never imply you looked.
-- Report: link first, then 2-3 plain lines on what's on it, what else changed and what the user must decide. Several pages: say which to read first and why, then one line per page with its purpose and how it relates to the others (overlaps, adds detail to, or replaces which page).
+## Deliver inline, else by link, never attachment
+- **Inline first.** If your harness can show the page in the conversation, use that and follow its rules for inline pages, which override the style rules above. Serve a link only when it can't, or when the user asks for one.
+- Otherwise serve the folder privately and give the full link, using the route the owner's global instructions or the project document (for example a private HTTPS proxy over a local `python3 -m http.server`). One folder per port; never reuse a port.
+- Before reporting: `curl` every served page for 200 (restart the server if it died), scan the pages for secrets and emails, and check each fact you were asked to include is there; say so if one is missing.
+- View the page at 390px and desktop. A harness preview that returns a screenshot counts. If you can't render it (no browser or preview tool), say so in the report; never imply you looked.
+- Report: link first, then 2-3 plain lines on what's on it, what else changed and what the user must decide. Inline, the reader already sees the page: add only what it doesn't say. Several pages: say which to read first and why, then one line per page with its purpose and how it relates to the others (overlaps, adds detail to, or replaces which page).

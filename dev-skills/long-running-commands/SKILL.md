@@ -18,6 +18,11 @@ usually means you stop acting; nothing will wake you when the job finishes, so t
 silently stalls and an observer (a human or an orchestrating agent) cannot tell
 "finished" from "stuck waiting".
 
+**Unless your harness wakes you.** If it has a tool that wakes you when the job or a PR's
+checks finish, and that tool says to end the turn, follow it: start the watch, say what
+you are waiting for, and end the turn. Continue from step 3 when woken. Without such a
+tool, the rule stands.
+
 ## Procedure
 
 1. **Start the job** so it cannot block or be killed with your shell: run it in the
@@ -47,5 +52,6 @@ silently stalls and an observer (a human or an orchestrating agent) cannot tell
 
 ## Verification
 
-- The final message contains a result (pass/fail with numbers), not a wait.
+- The final message contains a result (pass/fail with numbers), not a wait. A turn
+  ended on a harness wake-up is not the final message.
 - No background process you started is still running unless you say so and why.
