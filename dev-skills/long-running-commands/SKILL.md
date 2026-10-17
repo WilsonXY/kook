@@ -20,8 +20,8 @@ silently stalls and an observer (a human or an orchestrating agent) cannot tell
 
 **Unless your harness wakes you.** If it has a tool that wakes you when the job or a PR's
 checks finish, and that tool says to end the turn, follow it: start the watch, say what
-you are waiting for, and end the turn. Continue from step 3 when woken. Without such a
-tool, the rule stands.
+you are waiting for, and end the turn. When woken, deal with what woke you; once the
+result is in, continue from step 3. Without such a tool, the rule stands.
 
 ## Procedure
 

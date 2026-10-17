@@ -5,7 +5,7 @@ description: Use when the user says "html" or "report in html".
 
 # html-communicate
 
-"html" means the user wants a page they open by link and take in at a glance, not a markdown file or an attachment. Dense text tires their eyes, and pages that assume project knowledge lose them. Everything below serves that reader; the layout is your call.
+"html" means the user wants a page they take in at a glance, not a markdown file or an attachment. Dense text tires their eyes, and pages that assume project knowledge lose them. Everything below serves that reader; the layout is your call.
 
 ## Write for a reader who knows nothing about the project
 - **Lead with the point.** From the first screen alone, the reader should be able to say what the page tells them. For a recommendation, that means the whole recommendation in one plain sentence (what to do, its scope, its limits), apart from the findings, with what stays unchanged next to it.
