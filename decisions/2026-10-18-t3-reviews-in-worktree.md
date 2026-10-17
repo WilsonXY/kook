@@ -8,7 +8,7 @@
 - A canary child told to break the rule left an uncommitted edit in its worktree, committed there, and wrote a file into the parent checkout. `git status` in the parent showed the file and the child's branch had moved off its starting commit; the uncommitted edit stayed in the child's worktree, away from the PR.
 - T3 didn't remove the worktrees when the tasks ended. On 2026-10-17 they were gone about an hour later, with their branches left behind.
 
-**Decision.** `profile.md`: inside T3, run the same reviewer through `delegate_task` with `role: "review"` and `isolation: "worktree"`, after committing. Afterwards the parent's `git status`, the remote's branches and the child's branch tip must be unchanged; any write fails the review. "Implemented" means wrote the diff, itself or as a delegated child, so the Sol exception still applies when a Claude parent delegates the code to Sol.
+**Decision.** `profile.md`: inside T3, run the same reviewer through `delegate_task` with `role: "review"` and `isolation: "worktree"`, after committing. Afterwards the parent's HEAD and `git status`, the remote's branches, and the child's worktree (clean, at its starting commit) must be unchanged; any write fails the review. HEAD is in the list because a commit made in the parent leaves `git status` clean. "Implemented" means wrote the diff, itself or as a delegated child, so the Sol exception still applies when a Claude parent delegates the code to Sol.
 
 **Why.** Isolation plus a check after the review guards the property that matters: a reviewer's edits never land in the change unnoticed. It needs no approval mode, so Codex works too.
 

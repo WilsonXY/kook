@@ -18,7 +18,7 @@ Under this exception, name in the PR and in your final report the reviewer that 
 
 Inside T3 Code, run the same reviewer (model, effort) through `delegate_task` instead of its CLI, with `role: "review"` and `isolation: "worktree"`; use the CLI only if `delegate_task` can't run it. The child inherits this thread's write access, so read-only is checked, not enforced:
 - Commit first: the worktree gets committed code only. Tell the child not to edit, commit, push or post to GitHub.
-- Afterwards, `git status` here and `git ls-remote --heads origin` must match what they were before, and the child's branch must still point at the commit it started from. Any write fails the review: discard it, say so, and review again.
+- Afterwards, `git rev-parse HEAD`, `git status` and `git ls-remote --heads origin` here must match what they were before, and the child's worktree (`git worktree list`) must still be at its starting commit with a clean `git status`. Any write fails the review: discard it, say so, and review again.
 - Model and effort proof is the child's own session log (`~/.codex/sessions/`, or `~/.claude/projects/<worktree>/`).
 
 ## T3 Code
