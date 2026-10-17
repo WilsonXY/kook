@@ -20,7 +20,7 @@ You own the task end to end. Do not stop after the code works and ask "should I 
 4. **Independent review.** Follow `requesting-code-review`: a reviewer other than you, fix findings, re-verify.
 5. **Commit and push** the branch (see `github` for commit style). A branch created from `origin/<default>` tracks the default branch, so a bare `git push` would aim at it: push with `git push -u origin HEAD` or unset the tracking first (`git branch --unset-upstream`).
 6. **Open the PR** against the default branch (see `github`). For the body, follow `pr-body`. UI or user-visible changes: attach the screenshots or recording to the PR, captured after review fixes (re-run the proof if a fix touched that flow); see `github`.
-7. **Watch CI** until it finishes (`gh pr checks`). Fix failures and push. Answer or fix every review comment. If a fix touches a flow you proved, re-run the proof and attach the new files, so the PR shows current behaviour.
+7. **Watch CI** until it finishes (`gh pr checks`, or your harness's PR watch if it wakes you; see `long-running-commands`). Fix failures and push. Answer or fix every review comment. If a fix touches a flow you proved, re-run the proof and attach the new files, so the PR shows current behaviour.
 8. **Preview (UI or user-visible changes).** If the owner will want to try the change, follow the preview procedure in the repo's AGENTS.md (push the branch first). If AGENTS.md has none, do not start your own server or expose ports; say in the report how to try it and ask. Never restart a shared dev server another session may be using.
 9. **Report** to the owner (follow `pr-body`): PR link, what changed, verification and review results, anything the owner must decide.
 
@@ -30,7 +30,7 @@ You own the task end to end. Do not stop after the code works and ask "should I 
 - A step is impossible (no push access, reviewer unavailable): say so plainly in the report; never fake it.
 
 ## Common mistakes
-- Ending the turn while a test run is still going.
+- Ending the turn while a test run is still going, with nothing set to wake you.
 - Calling your own review "independent".
 - Reporting done with no PR, or with CI not checked.
 - Starting your own dev server for a preview when the repo documents a shared one.
