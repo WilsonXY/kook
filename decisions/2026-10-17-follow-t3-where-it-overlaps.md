@@ -5,7 +5,7 @@
 **Decision.** The owner asked that kook respect T3: inside T3, follow T3 where it covers the same job.
 - `long-running-commands` and `full-cycle`: a harness tool that wakes you counts as waiting. Without one, the old rule stands.
 - `html-communicate`: inline first, a link only when the harness can't show the page or the user asks for one; a harness preview screenshot counts as viewing the page.
-- Reviews stay on the CLI route in `profile.md`, because `delegate_task` children inherit write access and T3 says a narrower mode "is not a read-only switch". Revisit in #38.
+- Reviews stay on the CLI route in `profile.md`, because `delegate_task` children inherit write access and T3 says a narrower mode "is not a read-only switch". Revisit in #38. Superseded by `2026-10-18-t3-reviews-in-worktree.md`.
 
 **Why here.** The skills say it portably ("a harness tool that wakes you", "if your harness can show the page"), because `dev-skills/` may not name a harness or its tools. `profile.md` names T3 and its tools, which are the owner's setup.
 
