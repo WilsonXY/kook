@@ -39,5 +39,37 @@ check "rejects an unknown flag"        fails "$src/t3-thread.sh" "$id" --user-on
 check "rejects extra arguments"       fails "$src/t3-thread.sh" "$id" --users-only extra
 check "unknown id fails"              fails "$src/t3-thread.sh" 99999999-2222-3333-4444-555555555555
 check "missing database fails"        fails env T3_STATE_DB=/nonexistent "$src/t3-thread.sh" "$id"
+
+# T3 Code 0.1.0+ (V2) copies state.sqlite into statev2.sqlite once and writes new threads to V2
+# tables; old transcripts stay in the copied legacy tables until T3 imports them.
+v2="$tmp/home/.t3/userdata/statev2.sqlite"
+mkdir -p "${v2%/*}"
+cp "$T3_STATE_DB" "$v2"
+new=22222222-2222-3333-4444-555555555555
+sqlite3 "$v2" <<SQL
+create table orchestration_v2_projection_threads (thread_id text primary key, title text, payload_json text);
+create table orchestration_v2_projection_messages (message_id text primary key, thread_id text, role text, streaming integer, created_at text, payload_json text);
+insert into orchestration_v2_projection_threads values
+  ('$new', 'Add search', '{"branch":"feat/search"}'),
+  ('$id', 'Fix login', '{"branch":"fix/login"}');
+insert into orchestration_v2_projection_messages values
+  ('n1', '$new', 'user', 0, '2026-10-17T01:00:00Z', '{"text":"add search"}'),
+  ('n2', '$new', 'assistant', 1, '2026-10-17T01:00:01Z', '{"text":"half a repl"}'),
+  ('n3', '$new', 'assistant', 0, '2026-10-17T01:00:02Z', '{"text":"search added"}');
+SQL
+out="$(env -u T3_STATE_DB HOME="$tmp/home" "$src/t3-thread.sh" "$new" || true)"
+check "V2: reads statev2.sqlite by default" grep -q 'Add search (feat/search)' <<<"$out"
+check "V2: prints user messages"         grep -q 'add search' <<<"$out"
+check "V2: prints assistant messages"    grep -q 'search added' <<<"$out"
+check "V2: skips streaming messages"     lacks "half a repl" "$out"
+out="$(env -u T3_STATE_DB HOME="$tmp/home" "$src/t3-thread.sh" "$id" || true)"
+check "V2: old transcript from legacy tables" grep -q 'please fix login' <<<"$out"
+users="$(env -u T3_STATE_DB HOME="$tmp/home" "$src/t3-thread.sh" "$new" --users-only || true)"
+check "V2: --users-only keeps user"      grep -q "add search" <<<"$users"
+check "V2: --users-only drops assistant" lacks "search added" "$users"
+check "T3_STATE_DB beats statev2.sqlite" fails env HOME="$tmp/home" "$src/t3-thread.sh" "$new"
+mkdir -p "$tmp/v1/.t3/userdata" && cp "$T3_STATE_DB" "$tmp/v1/.t3/userdata/state.sqlite"
+out="$(env -u T3_STATE_DB HOME="$tmp/v1" "$src/t3-thread.sh" "$id" || true)"
+check "no statev2.sqlite: falls back to state.sqlite" grep -q 'please fix login' <<<"$out"
 echo "$passed passed, $failed failed"
 [ "$failed" -eq 0 ]
