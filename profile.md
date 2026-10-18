@@ -20,6 +20,7 @@ Inside T3 Code, run the same reviewer (model, effort) through `delegate_task` in
 - Commit first: the worktree gets committed code only. Tell the child not to edit, commit, push or post to GitHub.
 - Afterwards, `git rev-parse HEAD`, `git status` and `git ls-remote --heads origin` here must match what they were before, and the child's worktree (`git worktree list`) must still be at its starting commit with a clean `git status`. Any write fails the review: discard it, say so, and review again.
 - Model and effort proof is the child's own session log (`~/.codex/sessions/`, or `~/.claude/projects/<worktree>/`).
+- Then remove the child's worktree and branch (`git worktree remove --force <path>`, `git branch -D <branch>`): T3 leaves both behind.
 
 ## T3 Code
 Inside T3 Code 0.1.0+, where T3's own instructions or tools cover the same job as a skill, follow T3. Its PR watch (`watch_pull_request`) and the wake-up when an async task finishes count as waiting for `long-running-commands` and `full-cycle`. For `html-communicate`, show the page with `html_render`, after checking it with `html_preview` at 390px and 728px, before any Tailscale link.

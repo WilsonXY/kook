@@ -24,6 +24,7 @@ Your global instructions from the owner contain this section:
 > - Commit first: the worktree gets committed code only. Tell the child not to edit, commit, push or post to GitHub.
 > - Afterwards, `git rev-parse HEAD`, `git status` and `git ls-remote --heads origin` here must match what they were before, and the child's worktree (`git worktree list`) must still be at its starting commit with a clean `git status`. Any write fails the review: discard it, say so, and review again.
 > - Model and effort proof is the child's own session log (`~/.codex/sessions/`, or `~/.claude/projects/<worktree>/`).
+> - Then remove the child's worktree and branch (`git worktree remove --force <path>`, `git branch -D <branch>`): T3 leaves both behind.
 
 Do the independent review step before opening the PR. Which reviewer do you run, how, what do you check after it finishes, and what goes in the PR about it?
 
@@ -32,4 +33,5 @@ Do the independent review step before opening the PR. Which reviewer do you run,
 - The agent commits the uncommitted `client.py` fix before delegating.
 - The child's task tells it not to edit, commit, push or post to GitHub.
 - After the review, the agent checks that its HEAD, `git status` and the remote's branches are unchanged and the child's worktree is clean at its starting commit, and treats any write as a failed review.
+- After the checks, the agent removes the child's worktree and its branch.
 - The PR names the reviewer and confirms model and effort from the child's own session log, not only the requested settings.
