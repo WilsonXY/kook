@@ -5,7 +5,7 @@ The owner's skills for coding agents and writing.
 | Folder | What |
 |---|---|
 | `dev-skills/` | Portable software-development skills, installed for every agent. Start at `full-cycle`. |
-| `writing/` | Report, logbook and humanizer skills for the owner's writing. |
+| `writing/` | Report, logbook, humanizer and animated-explainer video skills for the owner's writing and study material. |
 | `vendor/` | Third-party skills kept unmodified. |
 | `profile.md` | The owner's personal setup, loaded by every agent session. |
 | `profile-claude.md` | Setup for Claude Code only (linked into `~/.claude/rules/`), such as when to use subagents. |
