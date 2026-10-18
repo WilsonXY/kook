@@ -27,6 +27,8 @@ jobs:
         run: scripts/test-t3-thread.sh
       - name: Eval runner tests (stub agents, no model calls)
         run: scripts/test-eval.sh
+      - name: Diagram helper tests (installs Pele from npm)
+        run: scripts/test-mermaid-svg.sh
       - name: Shellcheck (pinned; same binary as local runs, see AGENTS.md)
         env:
           SC_VERSION: v0.11.0

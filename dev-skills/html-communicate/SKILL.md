@@ -19,6 +19,7 @@ description: Use when the user says "html" or "report in html".
 
 ## Build
 - One self-contained file (inline CSS/JS/SVG, no external assets), readable on a phone: `viewport` meta, no horizontal scroll at 390px.
+- Diagrams (flows, sequences, state, timelines): write them as Mermaid, run `node mermaid-svg.mjs < diagram.mmd` from this skill's folder (it installs the pinned Pele renderer on first run and prints an SVG), and paste the SVG into the page. Colour it by setting Pele's CSS variables (`--pele-bg`, `--pele-fg`, `--pele-muted`, `--pele-line`, `--pele-surface`, `--pele-border`, `--pele-accent`, `--pele-font`) to the page's own colours, or the harness's theme variables when inline; highlight a node through its `[data-id=<node id>]` group. No mermaid.js, no CDN. Without Node, draw the SVG by hand.
 - Comfortable to read: large body text, generous line height, lines around 65 characters. Dark mode is true black with neutral greys, not blue-tinted; keep red/amber/green for severity. Reuse the style of an existing family of reports.
 - Restyling a page: keep its content and numbers, and save the old version outside the served folder, because anything in it can be browsed.
 - Keep banners honest: update "RUNNING" notices when work finishes; link new pages from older ones.
