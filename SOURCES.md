@@ -15,6 +15,7 @@ What Kook took from other skillsets, so upstream changes can be compared later. 
 | `vendor/show-me` | [humanlayer/skills](https://github.com/humanlayer/skills) `plugins/show-me/skills/show-me` | `653b6411c1f7` (2026-10-08) | MIT | None; upstream `LICENSE` copied alongside |
 | `vendor/handoff` | [mattpocock/skills](https://github.com/mattpocock/skills) `skills/productivity/handoff` | `49dd158d1076` (2026-10-09) | MIT | None; upstream `LICENSE` copied alongside |
 | `vendor/teach` | mattpocock/skills `skills/productivity/teach` | `49dd158d1076` | MIT | None; upstream `LICENSE` copied alongside |
+| `vendor/grilling` | [mattpocock/skills](https://github.com/mattpocock/skills) `skills/productivity/grilling` | `49dd158d1076` (2026-10-19) | MIT | None; includes upstream `agents/openai.yaml` and `LICENSE` |
 
 The superpowers pin is the upstream head when the copy was made (2026-10-02); the exact source commit wasn't recorded.
 
