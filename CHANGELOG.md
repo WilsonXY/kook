@@ -2,7 +2,7 @@
 
 One line per merged PR, newest first: what changed for agents or the owner, and why. Decisions behind a change are in `decisions/`.
 
-- Replace the retired free Muse Spark reviewer with simultaneous DeepSeek V4.1 Flash Free and GLM 5.3 Flash Free reviews at max effort on every fallback round; OpenCode CLI reviews use plan mode in separate worktrees with no-write checks (see `decisions/2026-10-20-opencode-fallback-pair.md`).
+- **#46** Replace the retired free Muse Spark reviewer with simultaneous DeepSeek V4.1 Flash Free and GLM 5.3 Flash Free reviews at max effort on every fallback round; OpenCode CLI reviews use plan mode in separate worktrees with no-write checks (see `decisions/2026-10-20-opencode-fallback-pair.md`).
 - **#45** `animated-explainer`: videos render on a true black background, with neutral grey panels and text in place of the blue-tinted slate palette, at the owner's request.
 - **#44** Matt Pocock's `grilling` added unchanged to `vendor/`, at the owner's request: stress-test a plan, decision or idea through rounds of questions (see `decisions/2026-10-19-vendor-grilling.md`).
 - **#43** New `writing/animated-explainer` skill: narrated, animated explainer videos (Manim, free local Kokoro voice), one per chapter, from slides, a PDF or notes. It works from a source-of-truth summary and a humanised script, and nothing renders final until a layout check, a beat-by-beat review and an accuracy check pass. On the thread's first video, the checker found 18 defects that thumbnail QA had missed, including the 3 the owner spotted, and audio moved from -20 to -12.6 LUFS (see `decisions/2026-10-19-animated-explainer-skill.md`).
