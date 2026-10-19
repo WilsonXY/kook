@@ -10,7 +10,7 @@ Used by `requesting-code-review` when the task names no reviewer. Unless the exc
 1. Codex CLI, model `gpt-6.1-sol`, reasoning effort high, run non-interactively at the repo root (`codex exec`, in a pseudo-terminal if needed), read-only.
 2. Fallback if Codex is unavailable (usage limit, not installed): run two fresh read-only OpenCode reviews simultaneously, one with `opencode/deepseek-v4.1-flash-free` and one with `opencode/glm-5.3-flash-free`, both at max effort. Give both the same diff and scope; wait for both and judge findings from both. Repeat the pair on every re-review round. A missing, failed or empty review leaves the round incomplete; report it.
 
-For the OpenCode CLI, use `opencode run --agent plan --model '<provider/model>#max'`, with a separate fresh worktree for each reviewer. Apply the no-write instructions, Git checks and cleanup below to each CLI review too; plan mode alone is not a read-only sandbox.
+For the OpenCode CLI, use `opencode run --agent plan --model '<provider/model>#max'`, with a separate fresh worktree for each reviewer. Apply the no-write instructions, Git checks and cleanup in the T3 Code review rules below to each CLI review too; plan mode alone is not a read-only sandbox.
 
 Exception: when `gpt-6.1-sol` implemented the change (wrote the diff, itself or as a delegated child), use this route instead, each in a fresh read-only context:
 1. Claude Code CLI, model `claude-opus-5-5`, effort high (`claude -p --model claude-opus-5-5 --effort high --permission-mode plan`).
@@ -18,11 +18,11 @@ Exception: when `gpt-6.1-sol` implemented the change (wrote the diff, itself or 
 
 Under this exception, name in the PR and in your final report the reviewer that actually ran and any fallback, with its model and effort confirmed from the reviewer's own output or logs where they show it; the requested settings alone are not proof. In the PR one line is enough (reviewer, model, effort, where confirmed, result); fuller evidence goes in the final report.
 
-Inside T3 Code, run the same reviewer (model, effort) through `delegate_task` instead of its CLI, with `role: "review"` and `isolation: "worktree"`; use the CLI only if `delegate_task` can't run it. The child inherits this thread's write access, so read-only is checked, not enforced:
-- Commit first: the worktree gets committed code only. Tell the child not to edit, commit, push or post to GitHub.
-- Afterwards, `git rev-parse HEAD`, `git status` and `git ls-remote --heads origin` here must match what they were before, and the child's worktree (`git worktree list`) must still be at its starting commit with a clean `git status`. Any write fails the review: discard it, say so, and review again.
-- Model and effort proof is the child's own session log (`~/.codex/sessions/`, `~/.claude/projects/<worktree>/`, or OpenCode's `opencode session export <session>`).
-- Then remove the child's worktree and branch (`git worktree remove --force <path>`, `git branch -D <branch>`): T3 leaves both behind.
+Inside T3 Code, run the same reviewer (model, effort) through `delegate_task` instead of its CLI, with `role: "review"` and `isolation: "worktree"`; use the CLI only if `delegate_task` can't run it. Each child inherits this thread's write access, so read-only is checked, not enforced:
+- Commit first: the worktree gets committed code only. Tell each reviewer not to edit, commit, push or post to GitHub.
+- Afterwards, `git rev-parse HEAD`, `git status` and `git ls-remote --heads origin` here must match what they were before, and each reviewer's worktree (`git worktree list`) must still be at its starting commit with a clean `git status`. Any write fails the review: discard it, say so, and review again.
+- Model and effort proof is each reviewer's own session log (`~/.codex/sessions/`, `~/.claude/projects/<worktree>/`, or OpenCode's `opencode session export <session>`).
+- Then remove each reviewer's worktree and branch (`git worktree remove --force <path>`, `git branch -D <branch>`): T3 leaves both behind.
 
 ## T3 Code
 Inside T3 Code 0.1.0+, where T3's own instructions or tools cover the same job as a skill, follow T3. Its PR watch (`watch_pull_request`) and the wake-up when an async task finishes count as waiting for `long-running-commands` and `full-cycle`. For `html-communicate`, show the page with `html_render`, after checking it with `html_preview` at 390px and 728px, before any Tailscale link.
