@@ -8,7 +8,9 @@ On every coding task, load the `ponytail` skill at full intensity next to `full-
 ## Reviewer routing
 Used by `requesting-code-review` when the task names no reviewer. Unless the exception below applies, try in order:
 1. Codex CLI, model `gpt-6.1-sol`, reasoning effort high, run non-interactively at the repo root (`codex exec`, in a pseudo-terminal if needed), read-only.
-2. Fallback if Codex is unavailable (usage limit, not installed): OpenCode CLI, model `opencode/muse-spark-1.3-contributor-free`, effort xhigh (`opencode run`).
+2. Fallback if Codex is unavailable (usage limit, not installed): run two fresh read-only OpenCode reviews simultaneously, one with `opencode/deepseek-v4.1-flash-free` and one with `opencode/glm-5.3-flash-free`, both at max effort. Give both the same diff and scope; wait for both and judge findings from both. Repeat the pair on every re-review round. A missing, failed or empty review leaves the round incomplete; report it.
+
+For the OpenCode CLI, use `opencode run --agent plan --model '<provider/model>#max'`, with a separate fresh worktree for each reviewer. Apply the no-write instructions, Git checks and cleanup below to each CLI review too; plan mode alone is not a read-only sandbox.
 
 Exception: when `gpt-6.1-sol` implemented the change (wrote the diff, itself or as a delegated child), use this route instead, each in a fresh read-only context:
 1. Claude Code CLI, model `claude-opus-5-5`, effort high (`claude -p --model claude-opus-5-5 --effort high --permission-mode plan`).
@@ -19,7 +21,7 @@ Under this exception, name in the PR and in your final report the reviewer that 
 Inside T3 Code, run the same reviewer (model, effort) through `delegate_task` instead of its CLI, with `role: "review"` and `isolation: "worktree"`; use the CLI only if `delegate_task` can't run it. The child inherits this thread's write access, so read-only is checked, not enforced:
 - Commit first: the worktree gets committed code only. Tell the child not to edit, commit, push or post to GitHub.
 - Afterwards, `git rev-parse HEAD`, `git status` and `git ls-remote --heads origin` here must match what they were before, and the child's worktree (`git worktree list`) must still be at its starting commit with a clean `git status`. Any write fails the review: discard it, say so, and review again.
-- Model and effort proof is the child's own session log (`~/.codex/sessions/`, or `~/.claude/projects/<worktree>/`).
+- Model and effort proof is the child's own session log (`~/.codex/sessions/`, `~/.claude/projects/<worktree>/`, or OpenCode's `opencode session export <session>`).
 - Then remove the child's worktree and branch (`git worktree remove --force <path>`, `git branch -D <branch>`): T3 leaves both behind.
 
 ## T3 Code
