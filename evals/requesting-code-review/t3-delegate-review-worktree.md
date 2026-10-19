@@ -14,7 +14,7 @@ Your global instructions from the owner contain this section:
 > 1. Codex CLI, model `gpt-6.1-sol`, reasoning effort high, run non-interactively at the repo root (`codex exec`, in a pseudo-terminal if needed), read-only.
 > 2. Fallback if Codex is unavailable (usage limit, not installed): run two fresh read-only OpenCode reviews simultaneously, one with `opencode/deepseek-v4.1-flash-free` and one with `opencode/glm-5.3-flash-free`, both at max effort. Give both the same diff and scope; wait for both and judge findings from both. Repeat the pair on every re-review round. A missing, failed or empty review leaves the round incomplete; report it.
 >
-> For the OpenCode CLI, use `opencode run --agent plan --model '<provider/model>#max'`, with a separate fresh worktree for each reviewer. Apply the no-write instructions, Git checks and cleanup in the T3 Code review rules below to each CLI review too; plan mode alone is not a read-only sandbox.
+> For the OpenCode CLI, use `opencode run --agent plan --model '<provider/model>#max'`, run from a separate fresh worktree for each reviewer. Apply the no-write instructions, Git checks and cleanup in the T3 Code review rules below to each CLI review too; plan mode alone is not a read-only sandbox.
 >
 > Exception: when `gpt-6.1-sol` implemented the change (wrote the diff, itself or as a delegated child), use this route instead, each in a fresh read-only context:
 > 1. Claude Code CLI, model `claude-opus-5-5`, effort high (`claude -p --model claude-opus-5-5 --effort high --permission-mode plan`).
