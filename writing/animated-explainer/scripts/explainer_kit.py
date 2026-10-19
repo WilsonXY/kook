@@ -35,7 +35,6 @@ if os.environ.get("EXPLAINER_DRAFT"):  # fast low-res preview renders
     config.pixel_width, config.pixel_height, config.frame_rate = 960, 540, 15
 else:
     config.pixel_width, config.pixel_height, config.frame_rate = 1920, 1080, 30
-config.background_color = "#0F172A"
 
 BUILD = Path(__file__).resolve().parent
 AUDIO_DIR = BUILD / "audio"
@@ -56,11 +55,12 @@ FONT = os.environ.get("EXPLAINER_FONT", FONT)
 SOURCE_PREFIX = "Slide"  # source tag text: "<SOURCE_PREFIX> <n>", bottom-right
 
 # ----------------------------------------------------------------- palette
-BG = "#0F172A"
-PANEL = "#1E293B"
-PANEL2 = "#334155"
-INK = "#F1F5F9"      # main text
-MUTED = "#94A3B8"    # secondary text
+# True black with neutral (untinted) greys: dark mode, no blue cast.
+BG = "#000000"
+PANEL = "#1C1C1C"
+PANEL2 = "#3A3A3A"
+INK = "#F5F5F5"      # main text
+MUTED = "#A3A3A3"    # secondary text
 BLUE = "#38BDF8"
 GREEN = "#4ADE80"
 RED_ = "#F87171"
@@ -70,6 +70,7 @@ PURPLE_ = "#C084FC"
 PINK_ = "#F472B6"
 TEAL_ = "#2DD4BF"
 ACCENTS = [BLUE, GREEN, YELLOW_, ORANGE_, PURPLE_, PINK_, TEAL_, RED_]
+config.background_color = BG
 
 
 # ----------------------------------------------------------------- text helpers
@@ -177,7 +178,7 @@ def arrow(start, end, color=MUTED, buff=0.1, sw=5, tip=0.22) -> Arrow:
 def phone(width=3.0, height=5.6, title="App") -> VGroup:
     """A simple phone mock-up. Returns VGroup with .screen (inner rect) and .header."""
     body = RoundedRectangle(corner_radius=0.35, width=width, height=height,
-                            stroke_color=MUTED, stroke_width=4, fill_color="#0B1220", fill_opacity=1)
+                            stroke_color=MUTED, stroke_width=4, fill_color="#0A0A0A", fill_opacity=1)
     screen = RoundedRectangle(corner_radius=0.2, width=width - 0.3, height=height - 0.6,
                               stroke_width=0, fill_color=INK, fill_opacity=1)
     header = Rectangle(width=width - 0.3, height=0.55, stroke_width=0, fill_color=ORANGE_, fill_opacity=1)
