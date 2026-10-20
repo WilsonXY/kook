@@ -12,7 +12,7 @@ Your global instructions from the owner contain this section:
 > ## Reviewer routing
 > Used by `requesting-code-review` when the task names no reviewer. Unless the exception below applies, try in order:
 > 1. Codex CLI, model `gpt-6.1-sol`, reasoning effort high, run non-interactively at the repo root (`codex exec`, in a pseudo-terminal if needed), read-only.
-> 2. Fallback if Codex is unavailable (usage limit, not installed): run two fresh read-only OpenCode reviews simultaneously, one with `opencode/deepseek-v4.1-flash-free` and one with `opencode/glm-5.3-flash-free`, both at max effort. Give both the same diff and scope; wait for both and judge findings from both. Repeat the pair on every re-review round. A missing, failed or empty review leaves the round incomplete; report it.
+> 2. Fallback if Codex is unavailable (usage limit, not installed): run two fresh read-only OpenCode reviews simultaneously, one with `opencode/deepseek-v4.1-flash-free` and one with `opencode/glm-5.3-flash-free`, both at max effort.
 >
 > For the OpenCode CLI, use `opencode run --agent plan --model '<provider/model>#max'`, run from a separate fresh worktree for each reviewer. Apply the no-write instructions, Git checks and cleanup in the T3 Code review rules below to each CLI review too; plan mode alone is not a read-only sandbox.
 >
