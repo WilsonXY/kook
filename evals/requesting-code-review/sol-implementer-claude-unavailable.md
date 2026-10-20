@@ -8,7 +8,7 @@ You are running as `gpt-6.1-sol`, and you implemented the change on branch `feat
 > ## Reviewer routing
 > Used by `requesting-code-review` when the task names no reviewer. Unless the exception below applies, try in order:
 > 1. Codex CLI, model `gpt-6.1-sol`, reasoning effort high, run non-interactively at the repo root (`codex exec`, in a pseudo-terminal if needed), read-only.
-> 2. Fallback if Codex is unavailable (usage limit, not installed): OpenCode CLI, model `opencode/muse-spark-1.3-contributor-free`, effort xhigh (`opencode run`).
+> 2. Fallback if Codex is unavailable (usage limit, not installed): run two fresh read-only OpenCode reviews simultaneously, one with `opencode/deepseek-v4.1-flash-free` and one with `opencode/glm-5.3-flash-free`, both at max effort.
 >
 > Exception: when `gpt-6.1-sol` implemented the change, use this route instead, each in a fresh read-only context:
 > 1. Claude Code CLI, model `claude-opus-5-5`, effort high (`claude -p --model claude-opus-5-5 --effort high --permission-mode plan`).
