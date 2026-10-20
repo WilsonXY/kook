@@ -2,6 +2,7 @@
 
 One line per merged PR, newest first: what changed for agents or the owner, and why. Decisions behind a change are in `decisions/`.
 
+- `profile.md`: apply Ponytail only to actual coding/implementation; exclude frontend design and creative work, including design expressed in code and creative steps after implementation (see `decisions/2026-10-20-ponytail-implementation-only.md`).
 - **#46** Replace the retired free Muse Spark reviewer with simultaneous DeepSeek V4.1 Flash Free and GLM 5.3 Flash Free reviews at max effort on every fallback round; OpenCode CLI reviews use plan mode in separate worktrees with no-write checks (see `decisions/2026-10-20-opencode-fallback-pair.md`).
 - **#45** `animated-explainer`: videos render on a true black background, with neutral grey panels and text in place of the blue-tinted slate palette, at the owner's request.
 - **#44** Matt Pocock's `grilling` added unchanged to `vendor/`, at the owner's request: stress-test a plan, decision or idea through rounds of questions (see `decisions/2026-10-19-vendor-grilling.md`).

@@ -3,7 +3,7 @@
 Personal setup for every agent session on this machine. Skills in `dev-skills/` stay portable and point here for anything specific to this owner, these tools or this machine. `scripts/sync-skills.sh` links this file as `~/.claude/CLAUDE.md` and `~/.codex/AGENTS.md`. Claude Code also loads `profile-claude.md`, which Codex never sees.
 
 ## Coding style
-On every coding task, load the `ponytail` skill at full intensity next to `full-cycle`, without waiting to be asked. Ponytail shortens the code, never the workflow: tests, review and the PR still happen.
+Use `ponytail` at full intensity alongside `full-cycle` only for actual coding/implementation, without waiting to be asked. Exclude frontend design and creative work, even when expressed in code or after implementation. In mixed tasks, preserve the design and apply Ponytail only to implementation mechanics. Tests, review and the PR still happen.
 
 ## Reviewer routing
 Used by `requesting-code-review` when the task names no reviewer. Unless the exception below applies, try in order:
