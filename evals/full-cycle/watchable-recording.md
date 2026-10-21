@@ -10,4 +10,4 @@ Write the flow file you would run, then say what you check before attaching the 
 ## Pass if
 - The flow is paced for a person to follow: pauses or a slow-motion setting between steps, and a hold on each result that proves the change (the single expense, the "Not sure it saved" message, the state after Retry).
 - Before attaching, the agent checks the recording itself (watches it or checks its length), not only that the command passed.
-- The video and screenshots are attached to the PR itself, not given as local file paths.
+- The recording is attached to the PR itself, not given as a local file path; screenshots may also be attached.
