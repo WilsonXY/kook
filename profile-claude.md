@@ -9,3 +9,6 @@ The owner asks you to use subagents (the Agent tool) where they pay off. This st
 - Run every subagent on `model: "haiku"` with `effort: "high"`. Set both on each spawn; the owner asks for this effort explicitly.
 - Keep the plan, the judgement that ties results together, and the edits for yourself. A subagent starts with none of your context: give it a self-contained prompt and the exact shape of the answer you want back.
 - Subagent reports can be wrong. Check a claim yourself before acting on it or passing it to the owner.
+
+## pstack skills
+Before following a skill from `vendor/pstack-teach` (`how`, `why`, `teach`, `unslop`, `blast-radius`, `recall`), read its Claude Code adapter `~/.local/share/kook/vendor/pstack-teach/docs/harness/claude-code.md` and map Cursor names with it; `<pstack>` is `~/.local/share/kook/vendor/pstack-teach`. Here they install as plain `/how`, `/why` and so on, not `/pstack:<name>`.

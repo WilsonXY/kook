@@ -2,7 +2,7 @@
 
 One line per merged PR, newest first: what changed for agents or the owner, and why. Decisions behind a change are in `decisions/`.
 
-- pstack's `how`, `why`, `teach`, `unslop`, `blast-radius` and `recall` added unchanged to `vendor/pstack-teach/` with the Claude Code adapter, at the owner's request, for learning a codebase. Matt Pocock's `teach` is now `/matt-teach`. The linker installs skills from a vendor pack's `skills/` folder. Manual only (see `decisions/2026-11-03-vendor-pstack-teach.md`).
+- pstack's `how`, `why`, `teach`, `unslop`, `blast-radius` and `recall` added unchanged to `vendor/pstack-teach/` with the Claude Code adapter, at the owner's request, for learning a codebase. Matt Pocock's `teach` is now `/matt-teach`. The linker installs skills from a vendor pack's `skills/` folder, and `profile-claude.md` points Claude Code to the adapter before running them. Manual only (see `decisions/2026-11-03-vendor-pstack-teach.md`).
 - `full-cycle`: UI recordings are paced for a person to follow, holding on each result, and their length is checked before attaching. Bokli#74's recordings played whole flows in 2.4–6.5 s (see `decisions/2026-10-21-watchable-recordings.md`).
 - poteto's `bro` (pstack) added unchanged to `vendor/`, at the owner's request: `/bro` restates the agent's last message in plain language. Manual only (see `decisions/2026-10-21-vendor-bro.md`).
 - `profile.md`: apply Ponytail only to actual coding/implementation; exclude frontend design and creative work, including design expressed in code and creative steps after implementation (see `decisions/2026-10-20-ponytail-implementation-only.md`).
