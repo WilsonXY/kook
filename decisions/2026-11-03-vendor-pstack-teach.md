@@ -1,0 +1,7 @@
+# Vendor pstack's codebase-learning skills
+
+**Context.** The owner asked to install poteto's pstack skills for learning a codebase: `how`, `why`, `teach` and `unslop` (which `teach` writes through), plus `blast-radius` and `recall`, and pstack's Claude Code adapter `docs/harness/claude-code.md`, into one folder, `vendor/pstack-teach`. No observed failure motivated the request.
+
+**Decision.** Copy them unchanged from [cursor/plugins](https://github.com/cursor/plugins/tree/ae5650febf4320793844c12c4adaa937f417f8da/pstack) with pstack's MIT `LICENSE`, keeping pstack's `skills/` and `docs/` layout. The adapter maps "run another pstack skill" to reading `<pstack>/skills/<name>/SKILL.md`, so that layout must hold. `link-skills.sh` and `sync-skills.sh --check` also pick up `<bucket>/<pack>/skills/<name>/`. pstack's `teach` collides with Matt Pocock's; at the owner's choice, his becomes `matt-teach` (folder and frontmatter `name`).
+
+**Why.** All six set `disable-model-invocation: true`, so as with `bro` (`2026-10-21-vendor-bro.md`) the owner's request is enough. Not copied: `poteto-mode`, which `how`, `why` and `recall` cite only for choosing subagent effort; without it the agent picks effort itself.

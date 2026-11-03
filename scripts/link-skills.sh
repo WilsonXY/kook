@@ -13,7 +13,7 @@ buckets=(dev-skills writing vendor) # keep in step with SCOPE.md
 dst="${1:-$HOME/.claude/skills}"
 mkdir -p "$dst"
 for b in "${buckets[@]}"; do
-  for d in "$repo/$b"/*/; do
+  for d in "$repo/$b"/*/ "$repo/$b"/*/skills/*/; do # a pack keeps its skills in <pack>/skills/
     [ -f "$d/SKILL.md" ] || continue
     name="$(basename "$d")"
     if [ -e "$dst/$name" ] && [ ! -L "$dst/$name" ]; then

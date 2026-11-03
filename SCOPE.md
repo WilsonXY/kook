@@ -34,7 +34,7 @@ Observed failures wait as GitHub issues labelled `inbox`. The `retro` skill file
 | `writing/` | active, the owner's writing and report skills | yes |
 | `vendor/` | third-party skills kept unmodified; see `SOURCES.md` | yes |
 
-Add a bucket (for example `in-progress/` or `frozen/`) only when a skill needs that status. To install it, add it to `buckets` in `scripts/link-skills.sh` and `scripts/sync-skills.sh`. Skill names are unique across buckets, because all of them link into one folder.
+Add a bucket (for example `in-progress/` or `frozen/`) only when a skill needs that status. To install it, add it to `buckets` in `scripts/link-skills.sh` and `scripts/sync-skills.sh`. Skill names are unique across buckets, because all of them link into one folder. A bucket folder may also be a pack that keeps its skills in `<pack>/skills/<name>/`, as upstream lays them out.
 
 ## Every PR
 

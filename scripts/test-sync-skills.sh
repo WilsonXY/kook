@@ -54,6 +54,14 @@ expect_ok   "vendor skill linked for claude"        links_to "$claude/borrowed" 
 expect_ok   "writing skill linked for agents"       links_to "$agents/prose" "$live/writing/prose"
 expect_ok   "vendor skill linked for agents"        links_to "$agents/borrowed" "$live/vendor/borrowed"
 expect_ok   "check passes with every bucket"        sync --check
+add_skill pack/skills/packed vendor; push "add a vendor pack"
+expect_ok   "sync with a vendor pack"               sync
+expect_ok   "pack skill linked for claude"          links_to "$claude/packed" "$live/vendor/pack/skills/packed"
+expect_ok   "pack skill linked for agents"          links_to "$agents/packed" "$live/vendor/pack/skills/packed"
+expect_ok   "check passes with a vendor pack"       sync --check
+rm "$claude/packed"
+expect_fail "check reports a missing pack link"     sync --check
+expect_ok   "sync relinks it"                       sync
 rm "$agents/prose"
 expect_fail "check reports a missing agents link"   sync --check
 ln -sfn "$tmp/dev/writing/prose" "$claude/prose"
