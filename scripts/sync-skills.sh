@@ -88,7 +88,7 @@ fi
 [ ! -L "$agents" ] || problem "$agents is one link, not a folder of links"
 for dst in "$claude" "$agents"; do
   for b in "${buckets[@]}"; do
-    for d in "$repo/$b"/*/; do
+    for d in "$repo/$b"/*/ "$repo/$b"/*/skills/*/; do # same globs as link-skills.sh
       [ -f "$d/SKILL.md" ] || continue
       n="$(basename "$d")"
       [ "$(readlink "$dst/$n" 2>/dev/null)" = "${d%/}" ] || problem "$dst/$n does not link to ${d%/}"

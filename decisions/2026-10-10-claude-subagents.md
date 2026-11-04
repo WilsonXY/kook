@@ -1,4 +1,4 @@
-# Claude Code uses Haiku subagents for fan-out work
+# Claude Code uses Haiku subagents for fan-out work (superseded by `2026-11-04-drop-haiku-subagents.md`)
 
 **Context.** In the 14 days to 2026-10-10, 2 of 66 Claude Code sessions on this machine spawned any subagent, and none chose a model, including sessions with 200 to 490 tool calls. Claude Code's Agent tool description tells the model not to spawn unless the user asks, and that a "thorough" or many-part task is no such request. The owner wants Claude to fan out to cheap subagents the way Theo's PR-audit prompt does, on Haiku 5.5 (owner, thread 6bf1af55). Codex should not get this rule.
 

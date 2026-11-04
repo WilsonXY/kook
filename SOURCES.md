@@ -14,9 +14,10 @@ What Kook took from other skillsets, so upstream changes can be compared later. 
 | `vendor/ponytail` | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | `e5ee596c8637` (2026-10-02) | MIT | None |
 | `vendor/show-me` | [humanlayer/skills](https://github.com/humanlayer/skills) `plugins/show-me/skills/show-me` | `653b6411c1f7` (2026-10-08) | MIT | None; upstream `LICENSE` copied alongside |
 | `vendor/handoff` | [mattpocock/skills](https://github.com/mattpocock/skills) `skills/productivity/handoff` | `49dd158d1076` (2026-10-09) | MIT | None; upstream `LICENSE` copied alongside |
-| `vendor/teach` | mattpocock/skills `skills/productivity/teach` | `49dd158d1076` | MIT | None; upstream `LICENSE` copied alongside |
+| `vendor/matt-teach` | mattpocock/skills `skills/productivity/teach` | `49dd158d1076` | MIT | Renamed from `teach` (frontmatter `name` and the one `/teach` mention) so pstack's `teach` can take the name; upstream `LICENSE` copied alongside |
 | `vendor/grilling` | [mattpocock/skills](https://github.com/mattpocock/skills) `skills/productivity/grilling` | `49dd158d1076` | MIT | None; includes upstream `agents/openai.yaml` and `LICENSE` |
 | `vendor/bro` | [cursor/plugins](https://github.com/cursor/plugins) `pstack/skills/bro` | `190d28736eff` (2026-10-20) | MIT | None; pstack `LICENSE` copied alongside |
+| `vendor/pstack-teach` | cursor/plugins `pstack/skills/{how,why,teach,unslop,blast-radius,recall}` and `pstack/docs/harness/claude-code.md` | `ae5650febf43` (2026-10-31) | MIT | None; pstack's `skills/` + `docs/` layout kept so the adapter's `<pstack>` paths resolve; pstack `LICENSE` copied alongside |
 
 The superpowers pin is the upstream head when the copy was made (2026-10-02); the exact source commit wasn't recorded.
 
